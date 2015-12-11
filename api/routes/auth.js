@@ -126,7 +126,8 @@ router.get('/activate/:activationToken', function (req, res, next) {
     assignToken(req, account, function (err, token) {
       if (err) { return next(err); }
 
-      loginResponse(req, res, token, account, next);
+      //loginResponse(req, res, token, account, next);
+      res.redirect('http://season-de-luxe.5stars.link/');
     });
   });
 });
