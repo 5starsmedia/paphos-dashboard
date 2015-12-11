@@ -14,12 +14,13 @@ router.get('/settings', function (req, res, next) {
     if (err) { return next(err); }
     res.header('Content-Type', 'application/javascript');
 
-    var apiEntryPointHost = req.app.config.get('url');
+    var entryPointHost = req.app.config.get('url');
+    var apiEntryPointHost = req.app.config.get('apiUrl');
 
     var varName = req.query.name || 'settings',
       settingsJs = {
-        ioEntryPoint: apiEntryPointHost + '/',
-        apiEntryPoint: apiEntryPointHost + '/api',
+        ioEntryPoint: entryPointHost + '/',
+        apiEntryPoint: apiEntryPointHost,
         dashboard: data.dashboard
       };
 
