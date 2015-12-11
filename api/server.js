@@ -55,7 +55,7 @@ exports.init = function (next) {
       mongoose.set('debug', false);
     },
     'dropDatabase': ['mongoose', function (next) {
-      //return next();
+      return next();
       app.log.info('Dropping mongodb database');
 
       mongoose.connection.db.dropDatabase(function (err) {
