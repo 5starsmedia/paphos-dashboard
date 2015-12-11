@@ -1,0 +1,40 @@
+{
+  "url": "http://localhost:4900",
+  "http": {
+    "port": 4900
+  },
+  "mongo": {
+    "db": "mongodb://127.0.0.1:27017/paphos-dashboard"
+  },
+  "auth": {
+    "tokenSecret": "secret",
+    "maxTokensCount": 5,
+    "tokenDuration": 1800000,
+    "persistTokenDuration": 2592000000
+  },
+  "tasks": {
+    "enabled": true,
+    "stomp": {
+      "destination": "/queue/paphos-dashboard",
+      "host": "localhost",
+      "port": 61613,
+      "login": "root",
+      "password": "123456"
+    }
+  },
+  "mail": {
+    "noReply": "Season De Lux <support@5starsmedia.com.ua>",
+    "transport": {
+      "service": "5starsmedia.com.ua",
+      "host": "smtp.yandex.ua",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "support@5starsmedia.com.ua",
+        "pass": "gfhjkm666"
+      },
+      "debug": false
+    },
+    "imagesPath": "https://5starsmedia.com.ua/static/mail"
+  }
+}

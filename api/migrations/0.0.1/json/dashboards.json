@@ -1,0 +1,17 @@
+[
+  {
+    "name": "BigBangDashboard",
+    "authorizations": [
+      {
+        "provider": "facebook",
+        "authKey": "418197618334612",
+        "authSecret": "ff90c091a37ce84855a6e350d15458f1"
+      },
+      {
+        "provider": "vk",
+        "authKey": "5158299",
+        "authSecret": "LzpsSmEqBbHePx5zqr1s"
+      }
+    ]
+  }
+]

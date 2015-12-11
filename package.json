@@ -1,0 +1,42 @@
+{
+  "name": "paphos-forms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "async": "^1.5.0",
+    "body-parser": "^1.14.1",
+    "commander": "^2.9.0",
+    "convict": "^1.0.1",
+    "cors": "^2.7.1",
+    "cssmin": "^0.4.3",
+    "deasync": "^0.1.4",
+    "express": "^4.13.3",
+    "handlebars": "^4.0.5",
+    "html-minifier": "^1.0.0",
+    "jsonwebtoken": "^5.4.1",
+    "juice": "^1.8.1",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "mongoose": "^4.2.8",
+    "nodemailer": "^1.10.0",
+    "paphos-core": "^1.0.0",
+    "pwd": "0.0.4",
+    "querystring": "^0.2.0",
+    "request": "^2.67.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/5starsmedia/paphos-forms.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/5starsmedia/paphos-forms/issues"
+  },
+  "homepage": "https://github.com/5starsmedia/paphos-forms#readme"
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Super Administrator",
+    "username": "root",
+    "password": "awdawd",
+    "profile": {
+      "email": "esvit666@gmail.com",
+      "gender": "male",
+      "dateOfBirth": "23.06.1988"
+    }
+  }
+]

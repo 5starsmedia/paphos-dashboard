@@ -1,0 +1,83 @@
+{{> header.html}}
+
+<table class="row">
+    <tr>
+        <td class="wrapper">
+
+            <table class="twelve columns">
+                <tr>
+                    <td class="content-wrap sub-grid">
+
+                        <p class="content__title_large center">
+                            Здравствуйте, {{userName}}
+                        </p>
+
+                        <p class="center">
+                            Вы зарегистрировались на сайте
+                            <a href="http://season-de-luxe.com" target="_blank">season-de-luxe.com</a>
+                        </p>
+
+                        <p class="center">
+                            Для завершения регистрации <br>
+                            нажмите кнопку и Ваш аккаунт будет активирован.
+                        </p>
+
+                        <table>
+                            <tr>
+                                <td class="three sub-columns"></td>
+                                <td class="six sub-columns">
+                                    <table class="medium-button radius center">
+                                        <tr>
+                                            <td>
+                                                <a href="{{config.url}}/api/auth/activate/{{activationToken}}"
+                                                   target="_blank">Активировать</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="three sub-columns"></td>
+                                <td class="expander"></td>
+                            </tr>
+                        </table>
+
+                    </td>
+
+                    <td class="expander"></td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+<table class="row">
+    <tr>
+        <td class="wrapper">
+
+            <table class="twelve columns">
+                <tr>
+                    <td class="content-wrap">
+
+                        <p>
+                            Не работает кнопка? Попробуйте скопировать и открыть эту ссылку в браузере:
+                        </p>
+
+                        <a href="{{config.url}}/api/auth/activate/{{activationToken}}"
+                           target="_blank"
+                           style="word-break: break-all; word-wrap: break-word; color: #222; font-weight: bold">
+                            {{config.url}}/api/auth/activate/{{{brokenToken}}}
+                        </a>
+
+                        <p class="margin-top-24">Спасибо что Вы с нами! <br>Команда Season-De-Luxe</p>
+
+                    </td>
+
+                    <td class="expander"></td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+{{> footer.html}}
