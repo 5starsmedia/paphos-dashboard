@@ -14,7 +14,7 @@
 
                         <p class="center">
                             Вы зарегистрировались на сайте
-                            <a href="http://season-de-luxe.com" target="_blank">season-de-luxe.com</a>
+                            <a href="{{config.url}}" target="_blank">season-de-luxe.com</a>
                         </p>
 
                         <p class="center">
@@ -29,8 +29,7 @@
                                     <table class="medium-button radius center">
                                         <tr>
                                             <td>
-                                                <a href="{{config.url}}/api/auth/activate/{{activationToken}}"
-                                                   target="_blank">Активировать</a>
+                                                <a href="{{activateLink}}" target="_blank">Активировать</a>
                                             </td>
                                         </tr>
                                     </table>
@@ -62,10 +61,9 @@
                             Не работает кнопка? Попробуйте скопировать и открыть эту ссылку в браузере:
                         </p>
 
-                        <a href="{{config.url}}/api/auth/activate/{{activationToken}}"
-                           target="_blank"
+                        <a href="{{activateLink}}" target="_blank"
                            style="word-break: break-all; word-wrap: break-word; color: #222; font-weight: bold">
-                            {{config.url}}/api/auth/activate/{{{brokenToken}}}
+                            {{activateBrokenLink}}}
                         </a>
 
                         <p class="margin-top-24">Спасибо что Вы с нами! <br>Команда Season-De-Luxe</p>
