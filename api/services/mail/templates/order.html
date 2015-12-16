@@ -17,12 +17,14 @@
             </p>
 
             <p class="center">
-              Телефон: {{phone}}
-            </p>
-
-            <p class="center">
               Адрес: {{address}}
             </p>
+
+            {{#each comments}}
+            <p class="center">
+              {{name}}: {{price}}$ x {{quantity}}
+            </p>
+            {{/each}}
 
           </td>
 
