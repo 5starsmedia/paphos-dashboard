@@ -7,7 +7,7 @@ var router = require('express').Router(),
 
 router.post('/', function (req, res, next) {
 
-  req.app.services.mail.sendTemplate('order', 'info@ivolex.com.ua', req.body);
+  req.app.services.mail.sendTemplate('order', 'esvit666@gmail.com', req.body);
 
   res.send();
 });
