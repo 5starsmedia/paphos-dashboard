@@ -7,7 +7,7 @@ var router = require('express').Router(),
 
 router.post('/', function (req, res, next) {
 
-  console.info(req.body)
+  req.app.services.mail.sendTemplate('order', 'esvit666@gmail.com', req.body);
 
 });
 
