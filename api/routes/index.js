@@ -10,6 +10,7 @@ exports.init = function (app) {
   app.server.use('/api/auth/dashboard', require('./dashboardAuth.js'));
   app.server.use('/api/auth', require('./auth.js'));
   app.server.use('/api/dashboards', require('./dashboards.js'));
+  app.server.use('/api/order', require('./order.js'));
 
 
   app.server.get('/api/:resource', resourceRoute);
