@@ -12,6 +12,13 @@
         "authKey": "5158299",
         "authSecret": "LzpsSmEqBbHePx5zqr1s"
       }
+    ],
+    "services": [
+      {
+        "name": "paphos-forms",
+        "moduleUrl": "http://localhost:5002/module.js",
+        "apiUrl": "http://localhost:5002/api"
+      }
     ]
   }
 ]

@@ -79,7 +79,9 @@ router.post('/signup', function (req, res, next) {
       };
       account.username = req.body.username;
       account.title = req.body.username.substr(0, req.body.username.indexOf('@'));
+      account.isAutoTitle = true;
       account.password = res.cryptPassword;
+      account.sourceType = 'form';
 
       account.save(function (err, acc) {
         if (err) { return next(err); }
@@ -151,6 +153,7 @@ router.post('/vk/callback', function (req, res, next) {
         client_secret: res.config.authSecret,
         redirect_uri: req.body.redirectUri
       };
+      req.app.log.info('Get vk access token', params);
 
       request.get({ url: accessTokenUrl, qs: params, json: true }, function(err, response, accessToken) {
         if (err) { return next(err); }
@@ -164,53 +167,59 @@ router.post('/vk/callback', function (req, res, next) {
       var graphApiUrl = 'https://api.vk.com/method/users.get',
         params = res.accessToken;
 
-      params.fields = 'photo_200,sex,bdate,screen_name';
+      params.fields = 'nickname,photo_200,sex,bdate,screen_name';
       request.get({ url: graphApiUrl, qs: params, json: true }, function(err, response, profile) {
         if (err) { return next(err); }
 
         next(null, profile.response[0]);
       });
     }],
-    'client': ['profile', function(next, res) {
-      req.app.models.clients.findOne({ provider: 'vk', 'external.user': res.profile.uid }, next);
+    'client': ['profile', 'accessToken', function(next, res) {
+      req.app.models.clients.findOne({
+        $or: [
+          { 'profile.email': res.accessToken.email },
+          { provider: 'vk', 'external.user': res.profile.uid }
+        ]
+      }, next);
     }],
     'account': ['client', function(next, res) {
       var isNewClient = !res.client,
+        isLinkAccount = res.client && res.client.profile.email && !_.find(res.client.external, { provider: 'vk' }),
         account = res.client || new req.app.models.clients({ provider: 'vk' }),
-        profile = res.profile;
+        profile = res.profile,
+        info = {
+          activated: Date.now(),
+          title: profile.first_name + ' ' + profile.last_name,
+          username: 'vk-' + profile.uid,
+          sourceType: 'socialRegistration',
+          profile: {
+            email: res.accessToken.email,
+            firstName: profile.first_name,
+            lastName: profile.last_name,
+            gender: !profile.sex ? 'unknown' : (profile.sex == 1 ? 'female' : 'male'),
+            avatarUrl: profile.photo_200,
+            dateOfBirth: profile.bdate ? moment.utc(profile.bdate, 'D.M.YYYY') : null,
+            vkUrl: 'https://vk.com/id' + profile.uid
+          },
+          external: [{
+            provider: 'vk',
+            user: profile.uid,
+            token: res.accessToken.access_token,
+            url: 'https://vk.com/id' + profile.uid
+          }]
+        };
 
-      if (isNewClient) {
-        account.activated = Date.now();
-        account.title = profile.first_name + ' ' + profile.last_name;
-        account.username = 'vk-' + profile.uid;
-        account.external = {
-          user: profile.uid
-        };
-        var gender = 'unknown';
-        if (profile.sex > 0) {
-          gender = profile.sex == 2 ? 'male' : 'female';
-        }
-        account.profile = {
-          //email: profile.email,
-          gender: gender,
-          vkUrl: 'https://vk.com/id' + profile.uid,
-          firstName: profile.first_name,
-          lastName: profile.last_name
-        };
-      }
-      if (profile.photo_200) {
-        account.profile.avatarUrl = profile.photo_200;
-      }
-      if (profile.bdate) {
-        account.profile.dateOfBirth = moment.utc(profile.bdate, 'D.M.YYYY');
-      }
-      account.external.token = res.accessToken.access_token;
+      account = req.app.services.accounts.mergeAccountInfo(account, info);
+
       account.save(function(err, acc) {
         if (err) { return next(err); }
 
         if (isNewClient) {
           req.app.log.info('Vk account "' + profile.uid + '" registered successfully');
           req.app.services.tasks.publish('db.clients.insert', { _id: acc._id });
+        } else if (isLinkAccount) {
+          req.app.log.info('Vk account "' + profile.uid + '" linked successfully');
+          req.app.services.tasks.publish('db.clients.linked', { _id: acc._id, provider: 'vk' });
         } else {
           req.app.log.info('Vk account "' + profile.uid + '" login successfully');
         }
@@ -259,7 +268,12 @@ router.post('/facebook/callback', function (req, res, next) {
       });
     }],
     'client': ['profile', function(next, res) {
-      req.app.models.clients.findOne({ provider: 'facebook', 'external.user': res.profile.id }, next);
+      req.app.models.clients.findOne({
+        $or: [
+          { 'profile.email': res.profile.email },
+          { provider: 'facebook', 'external.user': res.profile.id }
+        ]
+      }, next);
     }],
     'photo': ['profile', function (next, res) {
       request('https://graph.facebook.com/' + res.profile.id + '/picture?access_token=' + res.accessToken +
@@ -270,41 +284,45 @@ router.post('/facebook/callback', function (req, res, next) {
     }],
     'account': ['client', 'photo', function(next, res) {
       var isNewClient = !res.client,
+        isLinkAccount = res.client && res.client.profile.email && !_.find(res.client.external, { provider: 'facebook' }),
         account = res.client || new req.app.models.clients({ provider: 'facebook' }),
-        profile = res.profile;
+        profile = res.profile,
+        info = {
+          activated: Date.now(),
+          title: profile.name,
+          username: 'facebook-' + profile.id,
+          sourceType: 'socialRegistration',
+          profile: {
+            email: profile.email,
+            firstName: profile.first_name,
+            lastName: profile.last_name,
+            gender: profile.gender,
+            avatarUrl: (res.photo && res.photo.data && res.photo.data.url) ? res.photo.data.url : null,
+            dateOfBirth: profile.birthday ? moment.utc(profile.birthday, 'MM/DD/YYYY') : null,
+            facebookUrl: profile.link
+          },
+          external: [{
+            provider: 'facebook',
+            user: profile.id,
+            token: res.accessToken.access_token,
+            url: profile.link
+          }]
+        };
+      account = req.app.services.accounts.mergeAccountInfo(account, info);
 
-      if (isNewClient) {
-        account.activated = Date.now();
-        account.title = profile.name;
-        account.username = 'facebook-' + profile.id;
-        account.external = {
-          user: profile.id
-        };
-        account.profile = {
-          email: profile.email,
-          gender: profile.gender,
-          facebookUrl: profile.link,
-          firstName: profile.first_name,
-          lastName: profile.last_name
-        };
-      }
-      if (res.photo && res.photo.data && res.photo.data.url) {
-        account.profile.avatarUrl = res.photo.data.url;
-      }
-      if (profile.birthday) {
-        account.profile.dateOfBirth = moment.utc(profile.birthday, 'MM/DD/YYYY');
-      }
-      account.external.token = res.accessToken;
-      account.save(function(err) {
+      account.save(function(err, acc) {
         if (err) { return next(err); }
 
         if (isNewClient) {
-          req.app.log.info('Facebook account "' + profile.id + '" registered successfully');
-          req.app.services.tasks.publish('db.clients.insert', { _id: account._id });
+          req.app.log.info('Facebook account "' + profile.uid + '" registered successfully');
+          req.app.services.tasks.publish('db.clients.insert', { _id: acc._id });
+        } else if (isLinkAccount) {
+          req.app.log.info('Facebook account "' + profile.uid + '" linked successfully');
+          req.app.services.tasks.publish('db.clients.linked', { _id: acc._id, provider: 'facebook' });
         } else {
-          req.app.log.info('Facebook account "' + profile.id + '" login successfully');
+          req.app.log.info('Facebook account "' + profile.uid + '" login successfully');
         }
-        next(null, account);
+        next(null, acc);
       });
     }]
   }, function(err, data) {

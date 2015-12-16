@@ -1,6 +1,6 @@
 {
   "url": "http://localhost:4900",
-  "apiUrl": "http://localhost:4900",
+  "apiUrl": "http://localhost:4900/api",
   "http": {
     "port": 4900
   },
@@ -24,7 +24,7 @@
     }
   },
   "mail": {
-    "noReply": "Season De Lux <support@5starsmedia.com.ua>",
+    "noReply": "Season De Luxe <support@5starsmedia.com.ua>",
     "transport": {
       "service": "5starsmedia.com.ua",
       "host": "smtp.yandex.ua",

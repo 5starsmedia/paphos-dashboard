@@ -19,6 +19,12 @@ var schema = new mongoose.Schema({
     }
   ],
 
+  services: [{
+    name: String,
+    moduleUrl: String,
+    apiUrl: String
+  }],
+
   authorizations: [
     {
       provider: String,

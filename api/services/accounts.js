@@ -101,4 +101,35 @@ AccountsService.prototype.assignToken = function(account, persist, cb) {
   });
 };
 
+AccountsService.prototype.mergeAccountInfo = function(account, info, cb) {
+  // set title
+  if ((!account.title || account.isAutoTitle) && info.title) {
+    account.title = info.title;
+    account.isAutoTitle = false;
+  }
+
+  //save external
+  if (info.external && info.external.length) {
+    var external = info.external[0];
+
+    account.external = account.external || [];
+    account.external = _.reject(account.external, { provider: external.provider });
+    account.external.push(external);
+  }
+
+  if (!account.profile.gender || account.profile.gender == 'unknown' && info.profile.gender) {
+    account.profile.gender = info.profile.gender;
+  }
+  var accountUpdateFields = _.difference(_.keys(info), ['title', 'profile', 'external'] /* <- not updated fields */);
+  _.each(accountUpdateFields, function(fieldName) {
+    account[fieldName] = account[fieldName] || info[fieldName];
+  });
+
+  var profileUpdateFields = _.difference(_.keys(info.profile), ['gender'] /* <- not updated fields */);
+  _.each(profileUpdateFields, function(fieldName) {
+    account.profile[fieldName] = account.profile[fieldName] || info.profile[fieldName];
+  });
+  return account;
+};
+
 module.exports = AccountsService;
