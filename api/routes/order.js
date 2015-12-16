@@ -5,7 +5,7 @@ var router = require('express').Router(),
   _ = require('lodash'),
   async = require('async');
 
-router.get('/order', function (req, res, next) {
+router.post('/', function (req, res, next) {
 
   console.info(req.body)
 
