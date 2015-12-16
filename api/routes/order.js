@@ -9,6 +9,7 @@ router.post('/', function (req, res, next) {
 
   req.app.services.mail.sendTemplate('order', 'esvit666@gmail.com', req.body);
 
+  res.send();
 });
 
 
