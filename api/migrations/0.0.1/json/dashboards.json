@@ -4,13 +4,13 @@
     "authorizations": [
       {
         "provider": "facebook",
-        "authKey": "418197618334612",
-        "authSecret": "ff90c091a37ce84855a6e350d15458f1"
+        "authKey": "201272236874602",
+        "authSecret": "bb2358618bc34cb9deb056e8fe00a0fe"
       },
       {
         "provider": "vk",
-        "authKey": "5158299",
-        "authSecret": "LzpsSmEqBbHePx5zqr1s"
+        "authKey": "5191135",
+        "authSecret": "vG0o07901BwX0m7o7r8N"
       }
     ],
     "services": [
