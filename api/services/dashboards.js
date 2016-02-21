@@ -22,16 +22,18 @@ DashboardsService.prototype.createDashboard = function (dashboard, cb) {
     dashboard: [function (next, res) {
       self.log.debug('Creating dashboard for "' + dashboard.name + '"');
       var model = new self.app.models.dashboards(dashboard);
-      model.save(function (err, acc) {
+      model.save(function (err, dashboard) {
         if (err) {
           return next(err);
         }
 
-        next();
+        next(err, dashboard);
         //self.app.services.tasks.publish('db.accounts.insert', { _id: acc._id }, next);
       });
     }]
-  }, cb);
+  }, function(err, data) {
+    cb(err, data.dashboard);
+  });
 };
 
 DashboardsService.prototype.getDashboardForAccount = function (account, cb) {

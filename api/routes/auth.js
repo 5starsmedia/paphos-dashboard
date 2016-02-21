@@ -5,6 +5,7 @@ var router = require('express').Router(),
   _ = require('lodash'),
   request = require('request'),
   querystring = require('querystring'),
+  requireAccountMiddleware = require('../middleware/requireAccount'),
   async = require('async');
 
 var isEmailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
@@ -445,6 +446,10 @@ router.post('/login', function (req, res, next) {
       auth(req, res, account, next);
     });
   }
+});
+
+router.get('/', requireAccountMiddleware(), function (req, res, next) {
+  res.json(req.auth);
 });
 
 module.exports = router;

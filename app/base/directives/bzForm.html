@@ -1,0 +1,15 @@
+<div>
+
+    <form name="bzFormName" accept-charset="UTF-8" autocomplete="off" novalidate ng-submit="formSubmit()">
+
+        <div class="alert alert-danger"
+             ng-if="modelState.summaryErrors && modelState.summaryErrors.length">
+            <div ng-repeat="error in modelState.summaryErrors" class="cs-form__summary-error"
+                 ng-bind="error.msg"></div>
+        </div>
+
+        <ng-transclude></ng-transclude>
+
+    </form>
+
+</div>

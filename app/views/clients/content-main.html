@@ -1,0 +1,172 @@
+
+<div class="subnav" data-pjax="">
+    <div class="subnav-links left" role="navigation">
+
+        <a href="/pulls?q=is%3Aopen+is%3Apr+author%3Aesvit" aria-label="Pull Requests created by you" aria-selected="true" class="js-selected-navigation-item selected subnav-item" data-selected-links="dashboard_created /pulls?q=is%3Aopen+is%3Apr+author%3Aesvit" role="tab">Active</a>
+        <a href="/pulls?q=is%3Aopen+is%3Apr+assignee%3Aesvit" aria-label="Pull Requests assigned to you" class="js-selected-navigation-item subnav-item" data-selected-links="dashboard_assigned /pulls?q=is%3Aopen+is%3Apr+assignee%3Aesvit" role="tab">Inactive</a>
+        <a href="/pulls?q=is%3Aopen+is%3Apr+mentions%3Aesvit" aria-label="Pull Requests mentioning you" class="js-selected-navigation-item subnav-item" data-selected-links="dashboard_mentioned /pulls?q=is%3Aopen+is%3Apr+mentions%3Aesvit" role="tab">All</a>
+    </div>
+    <div class="right">
+        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/pulls" class="subnav-search left" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
+        <input type="text" name="q" value="is:open is:pr author:test " id="js-issues-search" class="subnav-search-input subnav-search-input-wide input-contrast" placeholder="Search all issues" aria-label="Search all issues">
+        <span class="octicon octicon-search subnav-search-icon"></span>
+    </form>      </div>
+</div>
+
+
+<div class="table-list-header" id="js-issues-toolbar" data-pjax="">
+    <div class="table-list-filters">
+
+        <a href="" ui-sref="clients.main.add">Modal</a>
+
+        <div class="table-list-header-toggle states left">
+            <a href="/pulls?q=is%3Apr+author%3Aesvit+is%3Aopen" class="btn-link selected">
+                <span class="octicon octicon-git-pull-request"></span>
+                2 Open
+            </a>
+
+            <a href="/pulls?q=is%3Apr+author%3Aesvit+is%3Aclosed" class="btn-link ">
+                <span class="octicon octicon-check"></span>
+                61 Closed
+            </a>
+        </div>
+
+
+        <div class="table-list-header-toggle right">
+            <div class="left select-menu js-menu-container js-select-menu js-load-contents" data-contents-url="/issues/show_menu_content?partial=issues%2Ffilters%2Fvisibility_content&amp;pulls_only=true&amp;q=is%3Aopen+is%3Apr+author%3Aesvit">
+                <button class="btn-link select-menu-button js-menu-target" type="button" aria-haspopup="true" data-hotkey="v">
+                    Visibility
+                </button>
+
+                <div class="select-menu-modal-holder js-menu-content js-navigation-container" aria-hidden="true">
+
+                    <div class="select-menu-modal">
+                        <div class="select-menu-header">
+                            <span class="octicon octicon-x js-menu-close" role="button" aria-label="Close"></span>
+                            <span class="select-menu-title">Repository visibility</span>
+                        </div>
+
+                        <div class="js-select-menu-deferred-content"></div>
+                        <div class="select-menu-loading-overlay"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="left select-menu js-menu-container js-select-menu js-load-contents" data-contents-url="/issues/show_menu_content?partial=issues%2Ffilters%2Forgs_content&amp;pulls_only=true&amp;q=is%3Aopen+is%3Apr+author%3Aesvit">
+                <button class="btn-link select-menu-button js-menu-target" type="button" aria-haspopup="true">
+                    Organization
+                </button>
+
+                <div class="select-menu-modal-holder js-menu-content js-navigation-container" aria-hidden="true">
+
+                    <div class="select-menu-modal">
+                        <div class="select-menu-header">
+                            <span class="octicon octicon-x js-menu-close" role="button" aria-label="Close"></span>
+                            <span class="select-menu-title">Filter by organization or owner</span>
+                        </div>
+
+                        <div class="js-select-menu-deferred-content"></div>
+                        <div class="select-menu-loading-overlay"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="left select-menu js-menu-container js-select-menu">
+                <spabuttonn class="btn-link select-menu-button icon-only js-menu-target" type="button" aria-haspopup="true">
+                    Sort<span class="sort-label"></span>
+
+
+                    <div class="select-menu-modal-holder js-menu-content js-navigation-container" aria-hidden="true">
+
+                        <div class="select-menu-modal">
+                            <div class="select-menu-header">
+                                <span class="octicon octicon-x js-menu-close" role="button" aria-label="Close"></span>
+                                <span class="select-menu-title">Sort by</span>
+                            </div>
+
+
+                            <div class="select-menu-list" role="menu">
+                                <div>
+                                    <a href="/pulls?q=is%3Aopen+is%3Apr+author%3Aesvit" class="select-menu-item js-navigation-item js-navigation-open selected" role="menuitem">
+                                        <span class="select-menu-item-icon octicon octicon-check"></span>
+                                        <div class="select-menu-item-text">Newest</div>
+                                    </a>
+                                    <a href="/pulls?q=is%3Aopen+is%3Apr+author%3Aesvit+sort%3Acreated-asc" class="select-menu-item js-navigation-item js-navigation-open " role="menuitem">
+                                        <span class="select-menu-item-icon octicon octicon-check"></span>
+                                        <div class="select-menu-item-text">Oldest</div>
+                                    </a>
+                                    <a href="/pulls?q=is%3Aopen+is%3Apr+author%3Aesvit+sort%3Acomments-desc" class="select-menu-item js-navigation-item js-navigation-open " role="menuitem">
+                                        <span class="select-menu-item-icon octicon octicon-check"></span>
+                                        <div class="select-menu-item-text">Most commented</div>
+                                    </a>
+                                    <a href="/pulls?q=is%3Aopen+is%3Apr+author%3Aesvit+sort%3Acomments-asc" class="select-menu-item js-navigation-item js-navigation-open " role="menuitem">
+                                        <span class="select-menu-item-icon octicon octicon-check"></span>
+                                        <div class="select-menu-item-text">Least commented</div>
+                                    </a>
+                                    <a href="/pulls?q=is%3Aopen+is%3Apr+author%3Aesvit+sort%3Aupdated-desc" class="select-menu-item js-navigation-item js-navigation-open " role="menuitem">
+                                        <span class="select-menu-item-icon octicon octicon-check"></span>
+                                        <div class="select-menu-item-text">Recently updated</div>
+                                    </a>
+                                    <a href="/pulls?q=is%3Aopen+is%3Apr+author%3Aesvit+sort%3Aupdated-asc" class="select-menu-item js-navigation-item js-navigation-open " role="menuitem">
+                                        <span class="select-menu-item-icon octicon octicon-check"></span>
+                                        <div class="select-menu-item-text">Least recently updated</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </spabuttonn></div>
+
+        </div>
+    </div>
+</div>
+
+<ul class="table-list table-list-bordered table-list-issues js-navigation-container js-active-navigation-container">
+
+    <li id="issue_52_5starsmedia_tintin" class="read table-list-item js-navigation-item js-issue-row"
+    ng-repeat="client in clients">
+
+
+        <div class="table-list-cell table-list-cell-type">
+            <a href="/issues?q=is%3Apr+is%3Aopen" aria-label="View all pull requests" class="tooltipped tooltipped-n">
+                <span class="fa fa-vk open"></span>
+            </a>  </div>
+
+        <div class="table-list-cell issue-title">
+            <a href="https://github.com/5starsmedia/tintin" class="issue-title-link issue-nwo-link">
+                {{client.profile.email}}
+            </a>
+
+            <a href="/5starsmedia/tintin/pull/52" class="issue-title-link js-navigation-open">
+                {{client.title}}
+            </a>
+
+            <div class="issue-meta">
+      <span class="issue-meta-section opened-by">
+        #52
+        opened <time datetime="2015-09-18T08:40:31Z" is="relative-time" title="18 вер. 2015 11:40 GMT+3">on 18 Sep</time> by
+        <a href="/issues?q=is%3Apr+is%3Aopen+author%3Aesvit" aria-label="View all pull requests opened by esvit" class="tooltipped tooltipped-s muted-link">esvit</a>
+      </span>
+
+
+      <span class="issue-meta-section css-truncate issue-milestone">
+      </span>
+
+
+            </div>
+        </div>
+
+        <div class="table-list-cell table-list-cell-avatar" ng-if="client.profile.avatarUrl">
+            <img class="gravatar" height="30" ng-src="{{client.profile.avatarUrl}}" width="30">
+        </div>
+
+        <div class="table-list-cell issue-comments">
+            <a href="/5starsmedia/tintin/pull/52" class="muted-link issue-comments-no-comment">
+                <span class="octicon octicon-comment"></span>
+                0
+            </a>
+        </div>
+    </li>
+
+</ul>

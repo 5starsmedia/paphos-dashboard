@@ -11,6 +11,11 @@ var schema = new mongoose.Schema({
     gender:  {type: String, default: 'unknown', enum: ['unknown', 'male', 'female']},
     dateOfBirth: {type: Date}
   },
+  dashboard: {
+    _id: mongoose.Schema.Types.ObjectId,
+    name: String
+  },
+
   activated: {type: Date},
 
   // for login

@@ -1,0 +1,25 @@
+<bz-form model="item" model-state="error" submit="saveItem(item)">
+<div class="modal-header">
+  <h3 class="modal-title">{{'New dashboard'|translate}}</h3>
+</div>
+<div class="modal-body">
+
+  <bz-form-control label="{{'Dashboard url'|translate}}" field="title" help="{{'Discover url for dashboard'|translate}}">
+
+    <input type="url" class="form-control" ng-model="item.url" ng-change="discoverUrl(item.url)" />
+
+  </bz-form-control>
+
+  <div ng-if="loadingDiscover">
+    loadingDiscover
+  </div>
+  <div ng-if="failderDiscover">
+    failderDiscover
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="submit" ng-disabled="!successDiscover">{{'Save'|translate}}</button>
+  <button class="btn btn-secondary" type="button" ng-click="$close()">{{'Cancel'|translate}}</button>
+</div>
+</bz-form>

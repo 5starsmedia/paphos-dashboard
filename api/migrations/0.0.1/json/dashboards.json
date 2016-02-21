@@ -1,24 +1,19 @@
 [
   {
     "name": "BigBangDashboard",
+    "baseUrl": "http://localhost:4900",
     "authorizations": [
       {
         "provider": "facebook",
-        "authKey": "201272236874602",
-        "authSecret": "bb2358618bc34cb9deb056e8fe00a0fe"
+        "authKey": "418197618334612",
+        "authSecret": "ff90c091a37ce84855a6e350d15458f1"
       },
       {
         "provider": "vk",
-        "authKey": "5191135",
-        "authSecret": "vG0o07901BwX0m7o7r8N"
+        "authKey": "5158299",
+        "authSecret": "LzpsSmEqBbHePx5zqr1s"
       }
     ],
-    "services": [
-      {
-        "name": "paphos-forms",
-        "moduleUrl": "http://localhost:5002/module.js",
-        "apiUrl": "http://localhost:5002/api"
-      }
-    ]
+    "services": ["base", "paphos-forms"]
   }
 ]

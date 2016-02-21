@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Core",
+    "name": "base",
+    "moduleUrl": "/dist/app.js",
+    "apiUrl": "/api"
+  },
+  {
+    "title": "Forms",
+    "name": "paphos-forms",
+    "moduleUrl": "http://localhost:5002/module.js",
+    "apiUrl": "http://localhost:5002/api"
+  }
+]

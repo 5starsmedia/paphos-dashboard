@@ -9,6 +9,7 @@ var schema = new mongoose.Schema({
 
   profile: {
     email: String,
+    phone: String,
     avatarUrl: String,
     vkUrl: String,
     facebookUrl: String,
@@ -30,6 +31,11 @@ var schema = new mongoose.Schema({
       'form'
     ]
   },
+
+  refs: [{
+    resourceName: String,
+    resourceId: mongoose.Schema.Types.ObjectId
+  }],
 
   // for login
   username: {type: String, required: true},

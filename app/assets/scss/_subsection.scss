@@ -1,0 +1,166 @@
+@-webkit-keyframes bounce-coach {
+  0% {
+    -webkit-transform: translateY(0)
+  }
+  100% {
+    -webkit-transform: translateY(0)
+  }
+  50% {
+    -webkit-transform: translateY(.3em)
+  }
+}
+
+@-moz-keyframes bounce-coach {
+  0% {
+    -moz-transform: translateY(0)
+  }
+  100% {
+    -moz-transform: translateY(0)
+  }
+  50% {
+    -moz-transform: translateY(.3em)
+  }
+}
+
+@-o-keyframes bounce-coach {
+  0% {
+    -o-transform: translateY(0)
+  }
+  100% {
+    -o-transform: translateY(0)
+  }
+  50% {
+    -o-transform: translateY(.3em)
+  }
+}
+
+@keyframes bounce-coach {
+  0% {
+    transform: translateY(0)
+  }
+  100% {
+    transform: translateY(0)
+  }
+  50% {
+    transform: translateY(.3em)
+  }
+}
+
+@-webkit-keyframes bounce-coach-sideways {
+  0% {
+    -webkit-transform: translateX(0)
+  }
+  100% {
+    -webkit-transform: translateX(0)
+  }
+  50% {
+    -webkit-transform: translateX(.3em)
+  }
+}
+
+@-moz-keyframes bounce-coach-sideways {
+  0% {
+    -moz-transform: translateX(0)
+  }
+  100% {
+    -moz-transform: translateX(0)
+  }
+  50% {
+    -moz-transform: translateX(.3em)
+  }
+}
+
+@-o-keyframes bounce-coach-sideways {
+  0% {
+    -o-transform: translateX(0)
+  }
+  100% {
+    -o-transform: translateX(0)
+  }
+  50% {
+    -o-transform: translateX(.3em)
+  }
+}
+
+@keyframes bounce-coach-sideways {
+  0% {
+    transform: translateX(0)
+  }
+  100% {
+    transform: translateX(0)
+  }
+  50% {
+    transform: translateX(.3em)
+  }
+}
+
+@-webkit-keyframes bounce-coach-sideways-flipX {
+  0% {
+    -webkit-transform: translateX(0) scaleX(-1)
+  }
+  100% {
+    -webkit-transform: translateX(0) scaleX(-1)
+  }
+  50% {
+    -webkit-transform: translateX(.3em) scaleX(-1)
+  }
+}
+
+@-moz-keyframes bounce-coach-sideways-flipX {
+  0% {
+    -moz-transform: translateX(0) scaleX(-1)
+  }
+  100% {
+    -moz-transform: translateX(0) scaleX(-1)
+  }
+  50% {
+    -moz-transform: translateX(.3em) scaleX(-1)
+  }
+}
+
+@-o-keyframes bounce-coach-sideways-flipX {
+  0% {
+    -o-transform: translateX(0) scaleX(-1)
+  }
+  100% {
+    -o-transform: translateX(0) scaleX(-1)
+  }
+  50% {
+    -o-transform: translateX(.3em) scaleX(-1)
+  }
+}
+
+@keyframes bounce-coach-sideways-flipX {
+  0% {
+    transform: translateX(0) scaleX(-1)
+  }
+  100% {
+    transform: translateX(0) scaleX(-1)
+  }
+  50% {
+    transform: translateX(.3em) scaleX(-1)
+  }
+}
+
+
+.bounce-coach {
+  -webkit-animation: bounce-coach 1.4s ease-in-out infinite;
+  -moz-animation: bounce-coach 1.4s ease-in-out infinite;
+  -o-animation: bounce-coach 1.4s ease-in-out infinite;
+  animation: bounce-coach 1.4s ease-in-out infinite;
+}
+
+.create-template {
+  position: absolute;
+  z-index: 2;
+  right: 60px;
+  top: 90px;
+}
+
+.coach-arrow-vertical {
+  background: url(https://us1.admin.mailchimp.com/release/10.6.91/images/coachmark-vertical-2x.png) no-repeat scroll 0 0 transparent;
+  background-size: 43px;
+  height: 85px;
+  width: 44px;
+  z-index: 2;
+}

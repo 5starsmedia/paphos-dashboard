@@ -1,0 +1,47 @@
+{
+  "name": "new-age",
+  "authors": [
+    "Vitalii Savchuk <esvit666@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "es6"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "resolutions": {
+    "bootstrap": "4",
+    "Sortable": "1.4.2",
+    "angular": "~1.5.1",
+    "angular-cookies": "~1.5.1"
+  },
+  "dependencies": {
+    "bootstrap": "4",
+    "angular": "~1.5.1",
+    "angular-ui-router": "~0.2.15",
+    "satellizer": "~0.13.1",
+    "lodash": "~3.10.1",
+    "ngAnalytics": "nganalytics#~1.1.4",
+    "angular-permission": "~1.1.1",
+    "rgrove-lazyload": "*",
+    "angular-bootstrap": "~0.14.3",
+    "angular-animate": "~1.5.1",
+    "angular-messages": "~1.5.1",
+    "angular-translate": "~2.8.1",
+    "angular-translate-loader-static-files": "~2.8.1",
+    "angular-translate-storage-local": "~2.8.1",
+    "angular-cookies": "~1.5.1",
+    "angular-resource": "~1.5.1",
+    "AngularJS-Toaster": "angularjs-toaster#~0.4.181",
+    "jailed": "~0.2.0",
+    "font-awesome": "fontawesome#~4.5.0"
+  }
+}

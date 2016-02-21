@@ -5,12 +5,14 @@ var express = require('express'),
   async = require('async'),
   cors = require('cors'),
   bodyParser = require('body-parser'),
+  expressHbs = require('express4-handlebars'),
   config = require('./config.js'),
   routes = require('./routes'),
   paphos = require('paphos-core'),
   AccountsService = require('./services/accounts.js'),
   DashboardsService = require('./services/dashboards.js'),
-  MailService = require('./services/mail/index.js');
+  MailService = require('./services/mail/index.js'),
+  authMiddleware = require('./middleware/auth.js');
 
 var app = {
   log: paphos.log(config),
@@ -18,6 +20,7 @@ var app = {
   models: {
     accounts: require('./models/account.js'),
     clients: require('./models/client.js'),
+    services: require('./models/service.js'),
     dashboards: require('./models/dashboard.js')
   }
 }
@@ -109,12 +112,33 @@ exports.start = function (next) {
       };
       app.server.use(cors(corsOptionsDelegate));
       app.server.use(bodyParser.json({ limit: '50mb' }));
+
+      var extname = expressHbs.get('extname');
+      app.server.engine(extname, expressHbs.__express);
+      app.server.set('view engine', extname);
+
+      var views_path = path.join(__dirname, '/views');
+      app.server.set('views', views_path);
+      expressHbs.set('layout_dir', path.join(views_path, 'layout'));
+      expressHbs.set('partials_dir', path.join(views_path, 'partials'));
+      expressHbs.set('useLayout', true);
+      expressHbs.set('layout', 'default');
+
       app.server.use(function (req, res, next) {
         req.app = app;
         next();
       });
 
       app.log.debug('Http server starting at', config.get('http.port'), '...');
+
+      app.server.use('/bower_components', express.static(path.join(__dirname, '../bower_components')));
+      app.server.use('/app', express.static(path.join(__dirname, '../app')));
+      app.server.use('/dist', express.static(path.join(__dirname, '../dist')));
+      app.server.use('/assets', express.static(path.join(__dirname, '../app/assets')));
+      app.server.use('/locale', express.static(path.join(__dirname, '../app/locale')));
+      app.server.use('/views', express.static(path.join(__dirname, '../app/views')));
+
+      app.server.use(authMiddleware());
 
       routes.init(app);
 

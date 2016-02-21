@@ -1,0 +1,42 @@
+<div class="container page-content">
+
+    <div class="col-xs-6 col-xs-offset-3">
+        <h2>{{'Sign In'|translate}}</h2>
+
+        <bz-form name="loginForm" model="user" model-state="error" submit="submitAuth(user)">
+            <bz-form-control label="{{'Username'|translate}}" field="username" help="{{'This will be your username.'|translate}}">
+
+                <input autocapitalize="off" autofocus="autofocus" id="username" name="username" size="30"
+                       type="text" ng-model="user.email" required class="form-control" />
+
+            </bz-form-control>
+
+            <bz-form-control label="{{'Password'|translate}}" field="password" help="{{'Use at least one lowercase letter, one numeral, and seven characters.'|translate}}">
+
+                <input ng-model="user.password" required id="password" name="password" size="30" type="password"
+                       class="form-control"/>
+
+            </bz-form-control>
+
+            <bz-form-control field="rememberMe">
+
+                <label class="c-input c-checkbox">
+                    <input type="checkbox">
+                    <span class="c-indicator"></span>
+                    {{'Remember Me'|translate}}
+                </label>
+
+            </bz-form-control>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" data-disable-with="Creating account…">
+                    {{'Sign in to your account'|translate}}
+                </button>
+            </div>
+
+        </bz-form>
+
+        <div class="text-center" ng-include="'views/partials/block-languages.html'"></div>
+    </div>
+
+</div>

@@ -1,0 +1,20 @@
+<fieldset class="form-group" ng-class="{'has-danger': hasErrors(field) || form[field].$invalid, 'has-success': !hasErrors(field) && form[field].$valid }">
+    <div id="error-list" ng-if="hasErrors(field)"></div>
+    <label ng-if="label && label.length > 0" ng-bind="label" for="{{field}}" class="form-control-label"></label>
+    <ng-transclude></ng-transclude>
+
+    <div ng-if="help && !(hasErrors(field) || form[field].$invalid)">
+        <small class="text-muted" ng-bind="help"></small>
+    </div>
+
+    <div ng-if="hasErrors(field) || form[field].$invalid" class="text-danger">
+        <div class="errors-list" ng-if="hasErrors(field)">
+            <div class="errors-list__error" ng-repeat="err in fieldErrors(field)" ng-bind="err.msg"></div>
+        </div>
+        <ng-messages ng-if="!hasErrors(field)" for="form[field].$error" role="alert">
+            <ng-message when="required">This field required</ng-message>
+            <ng-message when="minlength">minlength</ng-message>
+            <ng-message when="maxlength">maxlength</ng-message>
+        </ng-messages>
+    </div>
+</fieldset>

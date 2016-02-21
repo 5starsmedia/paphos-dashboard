@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
   name: {type: String, required: true},
+  baseUrl: {type: String, required: true},
 
   // user, owner of dashboard
   ownerAccount: {
@@ -20,6 +21,8 @@ var schema = new mongoose.Schema({
   ],
 
   services: [{
+    _id: mongoose.Schema.Types.ObjectId,
+    title: String,
     name: String,
     moduleUrl: String,
     apiUrl: String
