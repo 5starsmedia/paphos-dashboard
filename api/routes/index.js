@@ -25,6 +25,7 @@ exports.init = function (app) {
     var app = req.app;
     req.app = req.app.server;
     var url = req.protocol + '://' + req.get('host');// + req.originalUrl;
+    console.info(url)
     async.auto({
       'dashboard': function(next) {
         app.models.dashboards.findOne({ baseUrl: url }, next);
