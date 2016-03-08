@@ -163,6 +163,9 @@ Deployer.prototype.deploy = function() {
       }],
       'start': ['stop', function(next, res) {
         execSsh(res.ssh, 'cd '+ path + '\nforever start -a --uid "' + name + '" api/app.js', next);
+      }],
+      'nginxConfig': ['start', function(next, res) {
+        execSsh(res.ssh, 'cd '+ path + '\nln -fv nginx/production.conf /etc/nginx/sites-enabled', next);
       }]
     }, function(err, res) {
       res.ssh.end();
