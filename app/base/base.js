@@ -19,11 +19,13 @@ var module = angular.module(appName, [
 import bzForm from './directives/bzForm.js';
 import bzFormControl from './directives/bzFormControl.js';
 import bzCurrentUser from './directives/bzCurrentUser.js';
+import bzDateRange from './directives/bzDateRange.js';
 
 module
   .directive('bzForm', bzForm)
   .directive('bzFormControl', bzFormControl)
   .directive('bzCurrentUser', bzCurrentUser)
+  .directive('bzDateRange', bzDateRange)
 ;
 
 

@@ -1,1 +1,129 @@
-Service
+<div class="page-header">
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <h1>
+        Analytics
+      </h1>
+
+    </div>
+    <div class="col-md-3">
+
+      <input name="end" type="text" class="form-control datepicker" bz-date-range="current.date" placeholder=""/>
+    </div>
+    <div class="col-md-3">
+
+      <select class="c-select" ng-model="current.site"
+              ng-options="site as site.siteUrl for site in sites"></select>
+
+    </div>
+  </div>
+
+
+</div>
+
+
+<div ui-view>
+
+  <div ng-if="isReady">
+    <div id="embed-api-auth-container"></div>
+
+    <ng-analytics-active-users active-users-container="active-users" label="Online"
+                               default-ids="defaultIds"></ng-analytics-active-users>
+
+    <ng-analytics-report queries="queries"></ng-analytics-report>
+
+    <ng-analytics-chart chart="extraChart"></ng-analytics-chart>
+
+    <ng-analytics-chart ng-repeat="chart in charts" chart="chart"></ng-analytics-chart>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-6" ng-if="grownUp.length">
+
+      <h3>Top grown up pages</h3>
+
+      <div class="list-group">
+        <a ui-sref="service.main.page({ pageId: visit._id })" class="list-group-item" ng-repeat="visit in grownUp">
+          <span class="label label-success label-pill pull-xs-right">+{{visit.diffUsers}}</span>
+          {{visit.url}}
+        </a>
+      </div>
+
+    </div>
+    <div class="col-md-6" ng-if="dropIn.length">
+
+      <h3>Top drop in pages</h3>
+
+      <div class="list-group">
+        <a ui-sref="service.main.page({ pageId: visit._id })" class="list-group-item" ng-repeat="visit in dropIn">
+          <span class="label label-danger label-pill pull-xs-right">{{visit.diffUsers}}</span>
+          {{visit.url}}
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+  <div ng-controller="asSettingsCtrl">
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Website</th>
+        <th class="text-center">Analytics</th>
+        <th class="text-center">Webmaster</th>
+        <th class="text-center">Track</th>
+        <th class="text-right">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="site in sites track by $index">
+        <td>
+          <span ng-if="!site.isUnknown">{{site.siteUrl}}</span>
+          <strike ng-if="site.isUnknown">{{site.siteUrl}}</strike>
+        </td>
+        <td class="text-center">
+          <span class="fa fa-line-chart" ng-if="site.services.analytics"></span>
+        </td>
+        <td class="text-center">
+          <span class="fa fa-wrench" ng-if="site.services.webmaster"></span>
+        </td>
+        <td class="text-center">
+          <label class="c-input c-checkbox">
+            <input type="checkbox" ng-change="updateSite(site)" ng-if="!site.isUnknown" ng-model="site.isActive"/>
+            <span class="c-indicator"></span>
+          </label>
+        </td>
+        <td class="text-right">
+          <a href="" ng-click="scanSite(site)" ng-if="!site.isUnknown && site.services.analytics">Scan site</a>
+          <!--<a href="" ng-click="getPages(site)" ng-if="!site.isUnknown && site.services.analytics">get pages</a>-->
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-info"> <!-- ng-if="hasUnknown"-->
+
+      <div class="row">
+        <div class="col-xs-9">
+
+          One of your sites don't have permissions for getting statistic.<br/>
+          Please login with Google Account which have permissions for these sites
+
+        </div>
+        <div class="col-xs-3">
+
+          <a class="btn-google-sign-in" href="" ng-click="signIn()">Sign in with google</a>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+

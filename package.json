@@ -23,6 +23,7 @@
     "mongoose": "^4.2.8",
     "nodemailer": "^1.10.0",
     "oauth2-server": "^2.4.1",
+    "observatory": "^1.0.0",
     "paphos-core": "^1.0.0",
     "pwd": "0.0.4",
     "querystring": "^0.2.0",

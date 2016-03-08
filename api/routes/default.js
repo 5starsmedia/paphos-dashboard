@@ -61,13 +61,14 @@ function getDataOptions(req) {
 }
 
 function processGet(model, req, res, next) {
+  if (req.params._id) {
+    req.query._id = req.params._id;
+  }
+
   var filter = getFilter(req),
     options = getDataOptions(req);
 
   if (req.params._id || req.query.alias) {
-    if (req.params._id) {
-      req.query._id = req.params._id;
-    }
     model.findOne(filter, function (err, data) {
       if (err) {
         if (err.name === 'CastError') {

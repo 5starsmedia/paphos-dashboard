@@ -42,6 +42,10 @@
     "angular-resource": "~1.5.1",
     "AngularJS-Toaster": "angularjs-toaster#~0.4.181",
     "jailed": "~0.2.0",
-    "font-awesome": "fontawesome#~4.5.0"
+    "font-awesome": "fontawesome#~4.5.0",
+    "Sortable": "^1.4.2",
+    "dcjs": "^1.7.5",
+    "moment": "^2.12.0",
+    "bootstrap-daterangepicker": "^2.1.18"
   }
 }

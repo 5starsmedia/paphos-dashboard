@@ -10,5 +10,11 @@
     "name": "paphos-forms",
     "moduleUrl": "http://localhost:5002/module.js",
     "apiUrl": "http://localhost:5002/api"
+  },
+  {
+    "title": "Analytics",
+    "name": "paphos-analytics",
+    "moduleUrl": "http://localhost:5000/module.js",
+    "apiUrl": "http://localhost:5000/api"
   }
 ]

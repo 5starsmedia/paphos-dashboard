@@ -17,6 +17,10 @@
     {{/dashboard}}
     <script>{{{settings}}}</script>
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,600|Open+Sans:300italic,400italic,600italic,700italic,700,300,600,400" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="/bower_components/dcjs/dc.css">
+    <link rel="stylesheet" href="/bower_components/daterangepicker/dc.css">
+
     <link rel="stylesheet" href="/assets/css/layout.css">
 </head>
 <body>
@@ -24,6 +28,7 @@
 
 
 <script src="/bower_components/lodash/lodash.js"></script>
+<script src="/bower_components/jquery/dist/jquery.js"></script>
 <script src="/bower_components/angular/angular.js"></script>
 <script src="/bower_components/angular-animate/angular-animate.js"></script>
 <script src="/bower_components/angular-messages/angular-messages.js"></script>
@@ -43,6 +48,11 @@
 <script src="/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
 <script src="/bower_components/angular-translate-storage-local/angular-translate-storage-local.js"></script>
 <script src="/bower_components/AngularJS-Toaster/toaster.js"></script>
+<script src="/bower_components/moment/moment.js"></script>
+<script src="/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/bower_components/crossfilter/crossfilter.js"></script>
+<script src="/bower_components/d3/d3.js"></script>
+<script src="/bower_components/dcjs/dc.js"></script>
 
 {{#baseService}}
     <script src="{{moduleUrl}}"></script>

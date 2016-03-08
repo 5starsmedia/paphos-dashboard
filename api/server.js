@@ -23,7 +23,8 @@ var app = {
     services: require('./models/service.js'),
     dashboards: require('./models/dashboard.js')
   }
-}
+};
+
 app.services = {
   tasks: new paphos.tasks(app, {
     plugins: path.join(__dirname, 'tasks'),
@@ -58,7 +59,7 @@ exports.init = function (next) {
       mongoose.set('debug', false);
     },
     'dropDatabase': ['mongoose', function (next) {
-      //return next();
+      return next();
       app.log.info('Dropping mongodb database');
 
       mongoose.connection.db.dropDatabase(function (err) {

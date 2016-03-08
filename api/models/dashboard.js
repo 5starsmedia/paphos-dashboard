@@ -9,14 +9,14 @@ var schema = new mongoose.Schema({
   // user, owner of dashboard
   ownerAccount: {
     _id: mongoose.Schema.Types.ObjectId,
-    title: {type: String, required: true}
+    title: String
   },
 
   // connected users
   accounts: [
     {
       _id: mongoose.Schema.Types.ObjectId,
-      title: {type: String, required: true},
+      title: String
     }
   ],
 
@@ -44,6 +44,6 @@ var schema = new mongoose.Schema({
   collection: 'dashboards'
 });
 
-schema.index({title: 1}, {unique: true});
+schema.index({baseUrl: 1}, {unique: true});
 
 module.exports = mongoose.model('Dashboard', schema);

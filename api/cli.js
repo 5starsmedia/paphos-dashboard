@@ -3,6 +3,7 @@
 var program = require('commander');
 var deasync = require('deasync');
 var server = require('./server');
+var observatory = require('observatory');
 
 program
   .version('0.0.1')
@@ -33,11 +34,44 @@ var addTask = deasync(function (taskName, next) {
   });
 });
 
+var addDashboard = deasync(function (url, next) {
+  var log = server.app.log;
+  server.init(function (err) {
+    if (err) {
+      return console.log(err.toString());
+    }
+    var task = observatory.add('Creating dashboard...')
+      .details('Url: ' + url);
+
+    server.app.models.services.find({ removed: { $exists: false } }, function(err, services) {
+      if (err) {
+        return console.log(err.toString());
+      }
+
+      server.app.services.dashboards.createDashboard({
+        name: url,
+        baseUrl: url,
+        services: services
+      }, function () {
+        task.done('Done!');
+        server.stop(next);
+      });
+    });
+  });
+});
+
 program
   .command('push-task <taskname>')
   .description('Push specified task to task queue')
   .action(function (taskName, opts) {
     addTask(taskName);
+  });
+
+program
+  .command('add-dashboard <url>')
+  .description('Add dashboard')
+  .action(function (url, opts) {
+    addDashboard(url);
   });
 
 program

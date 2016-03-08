@@ -1,5 +1,6 @@
 import appName from './app';
 
+
 angular.element(document).ready(() => {
   /*let modules = _.pluck(settings.dashboard.services, 'moduleUrl');
    LazyLoad.js(modules, function () {
