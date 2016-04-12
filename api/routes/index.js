@@ -16,7 +16,7 @@ exports.init = function (app) {
   app.server.use('/api/order', require('./order.js'));
   app.server.use('/api/clients', require('./clients.js'));
   app.server.use('/api/notifications', require('./notifications.js'));
-
+  app.server.use('/api/services', require('./services.js'));
 
   app.server.get('/api/:resource', resourceRoute);
   app.server.get('/api/:resource/:_id', resourceRoute);
@@ -32,7 +32,6 @@ exports.init = function (app) {
       }
     }, function(err, data) {
       if (err) { return next(err); }
-
       if (!data.dashboard) {
         return res.render('notfound', {});
       }

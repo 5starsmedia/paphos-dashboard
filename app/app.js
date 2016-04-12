@@ -18,4 +18,4 @@ window.config = config;
     angular.module(appName, ['views', off]);
 }*/
 
-export default appName;
+export default appName; 

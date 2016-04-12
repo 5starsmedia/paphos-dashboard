@@ -69,6 +69,7 @@ function processGet(model, req, res, next) {
     options = getDataOptions(req);
 
   if (req.params._id || req.query.alias) {
+    
     model.findOne(filter, function (err, data) {
       if (err) {
         if (err.name === 'CastError') {
@@ -128,4 +129,3 @@ module.exports = function processRequest(req, res, next) {
         next();
     }
 };
-
