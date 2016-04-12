@@ -12,6 +12,7 @@ var module = angular.module(appName, [
   'satellizer',
   'ui.bootstrap',
   'pascalprecht.translate',
+  'checklist-model',
   'toaster',
   models
 ]);

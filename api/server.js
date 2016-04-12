@@ -71,7 +71,7 @@ exports.init = function (next) {
     }],
     'migration': ['dropDatabase', 'mongoose', function (next) {
       app.log.info('Load migrations:', path.join(__dirname, 'migrations'));
-      paphos.migrations.migrateToActual(app, path.join(__dirname, 'migrations'), next);
+      paphos.migrations.migrateToActual(mongoose, app, path.join(__dirname, 'migrations'), next);
     }],
     'tasks': function(next) {
       if (!config.get('tasks.enabled')) {

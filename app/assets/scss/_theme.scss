@@ -177,7 +177,7 @@ h3, .h3 {
 
 .c-input {
   .c-indicator {
-    top: 2px;
+    top: 3px;
     left: 2px;
   }
   > input {
@@ -189,4 +189,9 @@ h3, .h3 {
       box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem $link-color;
     }
   }
+}
+
+.form-control-label {
+  padding-left: 0;
+  padding-right: 0;
 }

@@ -20,7 +20,8 @@ function () {
         "startDate": scope.model.startDate.format('MM/DD/YYYY'),
         "endDate": scope.model.endDate.format('MM/DD/YYYY'),
         ranges: ranges,
-        opens: 'left'
+        opens: 'left',
+        "drops": "up"
       }, function (start, end, label) {
         scope.$apply(() => {
           scope.model.startDate = start;

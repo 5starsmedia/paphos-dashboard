@@ -11,8 +11,9 @@
         <div class="errors-list" ng-if="hasErrors(field)">
             <div class="errors-list__error" ng-repeat="err in fieldErrors(field)" ng-bind="err.msg"></div>
         </div>
+
         <ng-messages ng-if="!hasErrors(field)" for="form[field].$error" role="alert">
-            <ng-message when="required">This field required</ng-message>
+            <ng-message when="required">Это поле обязательное</ng-message>
             <ng-message when="minlength">minlength</ng-message>
             <ng-message when="maxlength">maxlength</ng-message>
         </ng-messages>

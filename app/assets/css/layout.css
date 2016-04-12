@@ -4691,7 +4691,7 @@ h3, .h3 {
     border-bottom: 3px solid #d0d0d0; }
 
 .c-input .c-indicator {
-  top: 2px;
+  top: 3px;
   left: 2px; }
 
 .c-input > input:checked ~ .c-indicator {
@@ -4699,6 +4699,10 @@ h3, .h3 {
 
 .c-input > input:focus ~ .c-indicator {
   box-shadow: 0 0 0 0.075rem #fff, 0 0 0 0.2rem #2c9ab7; }
+
+.form-control-label {
+  padding-left: 0;
+  padding-right: 0; }
 
 html {
   position: relative;
@@ -4710,6 +4714,7 @@ body {
 
 .footer {
   overflow: hidden;
+  position: absolute;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */

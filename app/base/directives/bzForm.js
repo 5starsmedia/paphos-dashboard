@@ -13,6 +13,7 @@ export default
             'onLeaveWarning': '=',
             'modelState': '=',
             'model': '=',
+            'bzFormName': '=?name',
             'submit': '&'
         },
         templateUrl: 'app/base/directives/bzForm.html',

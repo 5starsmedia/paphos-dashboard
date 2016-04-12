@@ -5,7 +5,7 @@ Service - Сторонний сервис, который можно подкл�
 
 # CLI
 ## Create dashboard
-node api/cli.js add-dashboard http://test.bs
+node api/cli.js add-dashboard http://micro.5stars.link
 
 ## Install nginx config
 ln -fv nginx/development.conf /usr/local/etc/nginx/servers
