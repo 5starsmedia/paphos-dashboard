@@ -1,7 +1,7 @@
 [
   {
     "name": "BigBangDashboard",
-    "baseUrl": "http://localhost:4900",
+    "baseUrl": "http://172.17.0.1",
     "authorizations": [
       {
         "provider": "facebook",
@@ -14,6 +14,6 @@
         "authSecret": "LzpsSmEqBbHePx5zqr1s"
       }
     ],
-    "services": ["base", "paphos-forms"]
+    "services": ["base", "paphos-forms", "paphos-analytics"]
   }
 ]

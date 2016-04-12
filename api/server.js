@@ -12,7 +12,8 @@ var express = require('express'),
   AccountsService = require('./services/accounts.js'),
   DashboardsService = require('./services/dashboards.js'),
   MailService = require('./services/mail/index.js'),
-  authMiddleware = require('./middleware/auth.js');
+  authMiddleware = require('./middleware/auth.js'),
+  diskdb = require('diskdb');
 
 var app = {
   log: paphos.log(config),
@@ -45,6 +46,28 @@ exports.init = function (next) {
   var startDate = Date.now();
   app.log.debug('Initializing', config.get('env'), 'configuration...');
 
+  app.errors = require('./errors');
+
+  async.auto({
+    'tasks': function(next) {
+      if (!config.get('tasks.enabled')) {
+        app.log.info('Tasks processing disabled');
+        return next();
+      }
+      app.services.tasks.init(next);
+    },
+    'mail': [function(next) {
+      app.services.mail.init(next);
+    }]
+  }, function (err) {
+    if (err) { return next(err); }
+
+    app.log.info('Configuration "' + config.get('env') + '" successfully loaded in', Date.now() - startDate, 'ms');
+    next();
+  });
+};
+
+exports.start = function (next) {
   async.auto({
     'mongoose': function (next) {
       app.log.debug('Connecting to mongodb...');
@@ -75,26 +98,6 @@ exports.init = function (next) {
     }],
     'tasks': function(next) {
       if (!config.get('tasks.enabled')) {
-        app.log.info('Tasks processing disabled');
-        return next();
-      }
-      app.services.tasks.init(next);
-    },
-    'mail': ['migration', function(next) {
-      app.services.mail.init(next);
-    }]
-  }, function (err) {
-    if (err) { return next(err); }
-
-    app.log.info('Configuration "' + config.get('env') + '" successfully loaded in', Date.now() - startDate, 'ms');
-    next();
-  });
-};
-
-exports.start = function (next) {
-  async.auto({
-    'tasks': function(next) {
-      if (!config.get('tasks.enabled')) {
         app.log.info('Tasks processing disabled, skipping queue subscribing');
         return next();
       }
@@ -113,6 +116,7 @@ exports.start = function (next) {
       };
       app.server.use(cors(corsOptionsDelegate));
       app.server.use(bodyParser.json({ limit: '50mb' }));
+      app.server.use(bodyParser.urlencoded({ extended: false }));
 
       var extname = expressHbs.get('extname');
       app.server.engine(extname, expressHbs.__express);

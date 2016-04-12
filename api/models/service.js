@@ -9,7 +9,7 @@ var schema = new mongoose.Schema({
 
   moduleUrl: String,
   apiUrl: String,
-
+  active: Boolean,
   lastDiscovered: {type: Date},
 
   // system

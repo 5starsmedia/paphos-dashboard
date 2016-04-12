@@ -1,16 +1,15 @@
-FROM node:5.9.1-wheezy
+FROM node:5.10-wheezy
 
-# Create app directory
-RUN mkdir -p /var/www
-WORKDIR /var/www
+RUN mkdir /src
 
-# Install app dependencies
-COPY package.json /var/www/
+RUN npm install nodemon -g
+RUN apt-get install curl
+
+COPY ./ /src
+WORKDIR /src
+CMD npm rabbit
 RUN npm install
 
-# Bundle app source
-COPY . /var/www
+EXPOSE 3000
 
-
-EXPOSE 4900
-CMD [ "npm", "start" ]
+CMD npm start

@@ -1,11 +1,11 @@
 {
-  "url": "http://localhost:4900",
-  "apiUrl": "http://localhost:4900/api",
+  "url": "http://172.17.0.1",
+  "apiUrl": "http://172.17.0.1/api",
   "http": {
-    "port": 4900
+    "port": 3000
   },
   "mongo": {
-    "db": "mongodb://127.0.0.1:27017/paphos-dashboard"
+    "db": "mongodb://mongo:27017/paphos-dashboard"
   },
   "auth": {
     "tokenSecret": "secret",
@@ -17,7 +17,7 @@
     "enabled": true,
     "stomp": {
       "destination": "/queue/paphos-dashboard",
-      "host": "localhost",
+      "host": "rabbitmq",
       "port": 61613,
       "login": "root",
       "password": "123456"
