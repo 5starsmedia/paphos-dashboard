@@ -6,6 +6,7 @@ RUN npm install nodemon -g
 RUN apt-get install curl
 
 COPY ./ /src
+WORKDIR /src
 CMD npm rabbit
 RUN npm install
 
