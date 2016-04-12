@@ -103,7 +103,7 @@ exports.start = function (next) {
       }
       app.services.tasks.start(next);
     },
-    'server': function(next) {
+    'server': ['migration', 'tasks', function(next) {
       app.server = express();
       app.httpServer = http.createServer(app.server);
 
@@ -148,7 +148,7 @@ exports.start = function (next) {
       routes.init(app);
 
       app.httpServer.listen(config.get('http.port'), next);
-    }
+    }]
   }, next);
 };
 
