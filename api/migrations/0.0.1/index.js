@@ -50,6 +50,7 @@ function createDashboards(app, cb) {
           return services[name];
         });
         dashboard.baseUrl = app.config.get('url');
+        console.info(dashboard.baseUrl)
         app.services.dashboards.createDashboard(dashboard, function(err, item) {
           account.dashboard = item;
           account.save(next);
