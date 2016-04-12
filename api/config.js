@@ -19,6 +19,18 @@ var conf = convict({
       env: 'MONGO_URI'
     }
   },
+  url: {
+    doc: 'The application environment url.',
+    format: String,
+    default: 'http://localhost:3000',
+    env: 'DASHBOARD_URL'
+  },
+  apiUrl: {
+    doc: 'The application environment api url.',
+    format: String,
+    default: 'http://localhost:3000/api',
+    env: 'DASHBOARD_API_URL'
+  },
   http: {
     port: {
       doc: 'HTTP port to bind.',
