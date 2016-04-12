@@ -1,4 +1,6 @@
 'use strict';
+var request = require('request');
+
 exports['services.checkAll'] = function(app, message, next) {
 
     app.models.services.find({}, function(err, records) {
@@ -35,8 +37,7 @@ exports['services.ping'] = function(app, message, next) {
         return next(errMsg);
     }
 
-    var request = require('supertest').agent(serviceUrl),
-    timer = new Promise(function(resolve, reject) {
+    var timer = new Promise(function(resolve, reject) {
         wait(10, resolve, reject);
     }),
     pinger = new Promise(ping);
@@ -56,13 +57,9 @@ exports['services.ping'] = function(app, message, next) {
     function ping(next, reject) {
         log.info("Ping!");
         request
-        .get('/api')
-        .expect("Content-type", /json/)
-        .expect(200)
-        .end(function(err, res) {
-            if(err) {
-                return reject(err);
-            }
+        .get(serviceUrl+'/api')
+        .on('error', reject(err))
+        .on('response', function(res) {
             next("Pong!");
         });
     }
