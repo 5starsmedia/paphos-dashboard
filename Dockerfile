@@ -7,7 +7,6 @@ RUN apt-get install curl
 
 COPY ./ /src
 WORKDIR /src
-CMD npm rabbit
 RUN npm install
 
 EXPOSE 3000
