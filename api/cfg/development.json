@@ -1,6 +1,4 @@
 {
-  "url": "http://172.17.0.1",
-  "apiUrl": "http://172.17.0.1/api",
   "http": {
     "port": 3000
   },
@@ -18,9 +16,7 @@
     "stomp": {
       "destination": "/queue/paphos-dashboard",
       "host": "rabbitmq",
-      "port": 61613,
-      "login": "root",
-      "password": "123456"
+      "port": 61613
     }
   },
   "mail": {

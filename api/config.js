@@ -71,6 +71,22 @@ var conf = convict({
         default: 0
       }
     }
+  },
+  tasks: {
+    stomp: {
+      login: {
+        doc: 'RabbitMQ user',
+        format: String,
+        default: 'guest',
+        env: 'RABBITMQ_USER'
+      },
+      password: {
+        doc: 'RabbitMQ password',
+        format: String,
+        default: 'guest',
+        env: 'RABBITMQ_PASS'
+      }
+    }
   }
 });
 

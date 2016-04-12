@@ -4,7 +4,7 @@ mongo:
     - "27017:27017"
   command: --smallfiles --rest
 rabbitmq:
-  image: rabbit
+  image: resilva87/docker-rabbitmq-stomp:latest
   ports:
     - "61613:61613"
     - "15672:15672"
@@ -13,13 +13,13 @@ rabbitmq:
     - RABBITMQ_PASS=123456
 web:
   image: esvit/paphos-dashboard
-  extra_hosts:
-    - "hostmachine:192.168.102.104"
   ports:
-    - "80:3000"
+    - "8000:3000"
   links:
-   - mongo
-   - rabbitmq
-   environment:
-     - "DASHBOARD_URL=http://localhost:3000"
-     - "DASHBOARD_API_URL=http://localhost:3000/api"
+    - mongo
+    - rabbitmq
+  environment:
+    - RABBITMQ_USER=root
+    - RABBITMQ_PASS=123456
+    - "DASHBOARD_URL=http://localhost:3000"
+    - "DASHBOARD_API_URL=http://localhost:3000/api"
