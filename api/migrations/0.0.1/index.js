@@ -49,6 +49,7 @@ function createDashboards(app, cb) {
         dashboard.services = _.map(dashboard.services, function(name) {
           return services[name];
         });
+        dashboard.baseUrl = app.config.get('url');
         app.services.dashboards.createDashboard(dashboard, function(err, item) {
           account.dashboard = item;
           account.save(next);
