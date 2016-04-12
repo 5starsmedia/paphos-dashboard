@@ -3,6 +3,7 @@ FROM node:5.10-wheezy
 RUN mkdir /src
 
 RUN npm install nodemon -g
+RUN npm install bower -g
 RUN apt-get install curl
 
 COPY ./ /src
