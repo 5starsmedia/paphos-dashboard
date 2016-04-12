@@ -7,7 +7,8 @@ RUN apt-get install curl
 
 COPY ./ /src
 WORKDIR /src
-RUN npm install && bower install
+RUN npm install
+RUN bower install
 
 EXPOSE 3000
 
