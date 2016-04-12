@@ -5,11 +5,9 @@ RUN mkdir /src
 RUN npm install nodemon -g
 RUN apt-get install curl
 
-
-WORKDIR /src
+COPY ./ /src
 CMD npm rabbit
-#RUN rabbitmq-plugins enable rabbitmq_management
-#RUN npm install
+RUN npm install
 
 EXPOSE 3000
 
