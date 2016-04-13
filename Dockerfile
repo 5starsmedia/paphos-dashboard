@@ -9,7 +9,7 @@ RUN apt-get install curl
 COPY ./ /src
 WORKDIR /src
 RUN npm install
-RUN bower install
+RUN bower install --allow-root
 
 EXPOSE 3000
 
