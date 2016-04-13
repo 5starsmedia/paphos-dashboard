@@ -1,98 +1,51 @@
 'use strict';
-var request = require('request');
+var request = require('request'),
+  async = require('async');
 
-exports['services.checkAll'] = function(app, message, next) {
+const PAPHOS_DASHBOARD_UA = 'paphos-dashboard/service-status';
 
-    app.models.services.find({}, function(err, records) {
-        if(err) {
-            app.log.error(err);
-            return next(err);
-        }
+exports['services.checkAll'] = function (app, message, next) {
+  app.models.services.find({}, function (err, records) {
+    if (err) { return next(err); }
 
-        if(records && records.length) {
-            records.forEach(function(record) {
-                app.services.tasks.publish('services.ping', {
-                  moduleUrl: record.moduleUrl
-                });
-            });
-        }
-
-        next();
-
+    records.forEach(function (record) {
+      app.services.tasks.publish('services.ping', { _id: record._id });
     });
-}
 
-exports['services.ping'] = function(app, message, next) {
-    if(!message.body && !message.body.moduleUrl) {
-        var errMsg = "Empty module Url: skip task.";
-        app.log.error(err);
-        return next(err);
-    }
+    next();
+  });
+};
 
-    var serviceUrl = message.body.moduleUrl;
-    var log  = app.log;
-    if(!serviceUrl) {
-        var errMsg = "Provide module url please!";
-        log.error(errMsg);
-        return next(errMsg);
-    }
+exports['services.ping'] = function (app, message, next) {
+  if (!message.body || !message.body._id) { return next({ msg: 'Empty module Url: skip task.' }); }
 
-    var timer = new Promise(function(resolve, reject) {
-        wait(10, resolve, reject);
-    }),
-    pinger = new Promise(ping);
+  async.auto({
+    'record': (next) => {
+      app.models.services.findOne({ _id: message.body._id }, next);
+    },
+    'request': ['record', (next, data) => {
+      var serviceUrl = data.record.moduleUrl;
 
-    Promise
-    .race([pinger, timer])
-    .then(function(status) {
-        updateRecord(serviceUrl, true, next);
-        log.info(status);
-    })
-    .catch(function(err) {
-        updateRecord(serviceUrl, false, next);
-        log.error(err);
-    })
+      app.log.info("Check service:", serviceUrl);
+      request({
+        url: serviceUrl,
+        headers: {
+          'User-Agent': PAPHOS_DASHBOARD_UA
+        },
+        encoding: null,
+        timeout: 10000
+      }, next);
+    }]
+  }, (err, res) => {
+    if (!res.record) { return next(err); }
 
+    res.record.active = !err;
+    res.record.save(function (err) {
+      if (err) { return next(err); }
 
-    function ping(next, reject) {
-        log.info("Ping!");
-        request
-        .get(serviceUrl+'/api')
-        .on('error', reject(err))
-        .on('response', function(res) {
-            next("Pong!");
-        });
-    }
+      app.log.info('Service with moduleUrl: ' + res.record.moduleUrl + ' active status: ' + res.record.active);
+      next();
+    });
+  });
 
-    function wait(checkTime, next, reject) {
-        checkTime = checkTime || 10;
-        var clock = setTimeout(function(){
-            reject("Timeout in "+checkTime+" seconds is exceeded.");
-        }, checkTime*1000);
-        return clock;
-    }
-
-    function updateRecord(url, status, next) {
-        app.models.services.findOne({moduleUrl: ''+url}, function(err, record) {
-            if(err) {
-                app.log.error(err);
-                return next(err);
-            }
-
-            record.active = status;
-            var item = new app.models.services(record);
-            item.save(function(err) {
-                if(err) {
-                    app.log.error(err);
-                    return next(err);
-                }
-
-                app.log.info("Service with moduleUrl: "+url+" active status: " + status);
-                next();
-            });
-        });
-
-    }
-
-
-}
+};

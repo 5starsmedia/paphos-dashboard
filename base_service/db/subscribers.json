@@ -1,1 +1,1 @@
-[{"clientUrl":"172.17.0.1","name":"testDashboard","status":1,"_id":"8fbd745290904c328c92327753606803"}]
+[{"name":"base_service","clientUrl":"http://localhost:3002/api","status":1,"_id":"eb346efa59d44f2f928bd5e39b83c3a0"}]
