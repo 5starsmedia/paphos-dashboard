@@ -1,16 +1,13 @@
 FROM node:5.10
 
-RUN mkdir /src
+COPY docker/crontab /etc/cron.d/paphos-dashboard
 
-RUN npm install nodemon -g
-RUN npm install bower -g
-RUN apt-get install curl
+RUN mkdir /src && npm install nodemon bower -g && apt-get update && apt-get install cron -y && chmod 0644 /etc/cron.d/paphos-dashboard
 
 COPY ./ /src
 WORKDIR /src
-RUN npm install
-RUN bower install --allow-root
+RUN npm install && bower install --allow-root
 
 EXPOSE 3000
 
-CMD npm start
+CMD cron && npm start

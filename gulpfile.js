@@ -64,11 +64,11 @@ function compileWidget(watch) {
 
 function watch() {
   return compile(true);
-};
+}
 
 function watchWidget() {
   return compileWidget(true);
-};
+}
 
 gulp.task('sass', function () {
   gulp.src('./app/assets/scss/**/*.scss')

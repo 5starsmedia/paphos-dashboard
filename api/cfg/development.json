@@ -18,9 +18,7 @@
     "stomp": {
       "destination": "/queue/paphos-dashboard",
       "host": "rabbitmq",
-      "port": 61613,
-      "login": "root",
-      "password": "123456"
+      "port": 61613
     }
   },
   "mail": {

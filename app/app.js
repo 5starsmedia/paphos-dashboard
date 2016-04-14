@@ -10,7 +10,7 @@ try {
     angular.module('views', []);
 }
 
-window.config = config;
+window.config = config; 
 
 //if (window.settings) {
     angular.module(appName, [baseApp, 'views'].concat(modules));
@@ -18,4 +18,4 @@ window.config = config;
     angular.module(appName, ['views', off]);
 }*/
 
-export default appName; 
+export default appName;
