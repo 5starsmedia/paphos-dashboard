@@ -1,4 +1,4 @@
-FROM node:5.10-wheezy
+FROM node:5.10
 
 RUN mkdir /src
 
