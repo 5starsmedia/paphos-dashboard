@@ -43,14 +43,9 @@
             <span ng-if="!item.active" class="tooltipped" aria-label="{{'Inactive'|translate}}">
               <span class="text-danger pe-7s-close-circle pe-3x pe-va"></span>
             </span>
-            <span ng-if="item.active" class="tooltipped" aria-label="{{'Active'|translate}}">
-              <span class="text-success fa fa-check fa-3x" title="{{'Active'|translate}}"></span>
-            </span>
-            <span ng-if="!item.active" class="tooltipped" aria-label="{{'Inactive'|translate}}">
-              <span class="text-danger fa fa-warning fa-3x"></span>
-            </span>
 
             <h4><a href="" ui-sref="forms.builder({ _id: item._id })" ng-bind="item.title"></a></h4>
+            <p>{{item.name}}</p>
           </div>
           <div class="col-xs-5">
             <div class="data inline-block-i pull-left">

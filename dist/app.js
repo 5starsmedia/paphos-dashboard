@@ -2083,6 +2083,17 @@ function ($scope, $interval, bServiceModel) {
 
   var loadData = function loadData() {
     bServiceModel.query({}, function (data) {
+      if ($scope.services) {
+        _.each(data, function (item) {
+          var service = _.find($scope.services, { _id: item._id });
+          if (!service) {
+            $scope.services.push(item);
+            return;
+          }
+          angular.copy(item, service);
+        });
+        return;
+      }
       $scope.services = data;
     });
   };

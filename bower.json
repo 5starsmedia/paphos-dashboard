@@ -47,6 +47,7 @@
     "dcjs": "^1.7.5",
     "moment": "^2.12.0",
     "bootstrap-daterangepicker": "^2.1.18",
-    "checklist-model": "^0.9.0"
+    "checklist-model": "^0.9.0",
+    "pixeden-stroke-7-icon": "^1.2.3"
   }
 }
