@@ -33,16 +33,13 @@ function ($scope, $state, item, $http, $q, bServiceModel) {
 
     if (item._id) {
       return item.$save(data => {
-        console.info(data);
-
         $scope.loading = false;
       });
     }
 
     return item.$subscribe(data => {
-      console.info(data);
-
       $scope.loading = false;
+      $scope.$close();
     });
   };
 
