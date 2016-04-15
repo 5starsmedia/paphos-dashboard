@@ -6,14 +6,14 @@
     "Use at least one lowercase letter, one numeral, and seven characters.": "Use at least one lowercase letter, one numeral, and seven characters.",
     "Remember Me": "Remember Me",
     "Sign in to your account": "Sign in to your account",
-    "Active": "Active",
-    "Inactive": "Inactive",
-    "Details": "Details",
     "New service": "New service",
     "Service url": "Service url",
     "Discover url for service": "Discover url for service",
     "Delete": "Delete",
     "Add": "Add",
     "Save": "Save",
-    "Cancel": "Cancel"
+    "Cancel": "Cancel",
+    "Active": "Active",
+    "Inactive": "Inactive",
+    "Details": "Details"
 }

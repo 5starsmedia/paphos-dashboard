@@ -16,6 +16,7 @@ function ($scope, $state, item, $http, $q, bServiceModel) {
 
     $http.get(url + '/paphos-discover.json', {timeout: canceler.promise}).success(data => {
       $scope.item = new bServiceModel(data);
+      $scope.item.url = url;
 
       $scope.loadingDiscover = false;
       $scope.successDiscover = true;
