@@ -103,7 +103,9 @@ function processGet(model, req, res, next) {
         model.find(filter, {}, options, next);
       }
     }, function (err, data) {
-      if (err) { return next(err); }
+      if (err) {
+        return next(err);
+      }
 
       if (data.count !== -1) {
         res.set('x-total-count', data.count);
@@ -114,40 +116,48 @@ function processGet(model, req, res, next) {
 }
 
 function processDelete(model, req, res, next) {
-  model.findById(req.params._id, function (err, data) {
+
+  async.auto({
+    'record': function (next) {
+      model.findById(req.params._id, next);
+    },
+    'delete': ['record', function (next, data) {
+      if (!data.record) {
+        return next(req.app.errors.NotFoundError('Resource "' + req.params.resource + ' ' + req.params._id + '" not found.'));
+      }
+
+      if (model.schema.paths.removed) {
+        return data.record.update({'removed': Date.now()}, next);
+      }
+      data.record.remove(next)
+    }],
+    'notice': ['delete', function (next) {
+      req.app.services.tasks.publish('db.' + req.params.resource + '.delete', {_id: req.params._id}, next);
+    }]
+  }, function (err, data) {
     if (err) {
       return next(err);
     }
-    data.update({'removed': Date.now()}, function (err) {
-      if (err) {
-        return next(err);
-      }
-      req.app.services.tasks.publish('db.' + req.params.resource + '.delete', { _id: req.params._id }, function (err) {
-          if (err) {
-            return next(err);
-          }
-          res.status(204).end();
-        });
-    });
+    res.status(204).end();
   });
 }
 
 module.exports = function processRequest(req, res, next) {
   var resourceName = req.params.resource,
     model = req.app.models[resourceName];
-    if (!model) {
-      return next(req.app.errors.NotFoundError('Resource "' + resourceName + '" not found.'));
-    }
+  if (!model) {
+    return next(req.app.errors.NotFoundError('Resource "' + resourceName + '" not found.'));
+  }
 
-    var method = req.method.toLowerCase();
-    switch (method) {
-      case 'get':
-        processGet(model, req, res, next);
-        break;
-      case 'delete':
-        processDelete(model, req, res, next);
-        break;
-      default:
-        next();
-    }
+  var method = req.method.toLowerCase();
+  switch (method) {
+    case 'get':
+      processGet(model, req, res, next);
+      break;
+    case 'delete':
+      processDelete(model, req, res, next);
+      break;
+    default:
+      next();
+  }
 };
