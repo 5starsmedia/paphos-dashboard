@@ -13,7 +13,7 @@ var schema = new mongoose.Schema({
   lastDiscovered: {type: Date},
 
   // system
-  removed: {type: Date},
+  //removed: {type: Date},
   createDate: {type: Date, required: true, default: Date.now},
   modifyDate: {type: Date}
 }, {
