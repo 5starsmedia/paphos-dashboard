@@ -35,7 +35,7 @@ router.post('/subscribe', function (req, res, next) {
           return next(err);
         }
 
-        next(null, "Service with pingUrl: " + item.pingUrl + " successfully added.");
+        next(null, item);
       });
     }],
     ping: ['record', function (next, data) {
