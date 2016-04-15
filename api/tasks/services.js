@@ -24,7 +24,7 @@ exports['services.ping'] = function (app, message, next) {
       app.models.services.findOne({ _id: message.body._id }, next);
     },
     'request': ['record', (next, data) => {
-      var serviceUrl = data.record.moduleUrl;
+      var serviceUrl = data.record.pingUrl;
 
       app.log.info("Check service:", serviceUrl);
       request({
@@ -43,7 +43,7 @@ exports['services.ping'] = function (app, message, next) {
     res.record.save(function (err) {
       if (err) { return next(err); }
 
-      app.log.info('Service with moduleUrl: ' + res.record.moduleUrl + ' active status: ' + res.record.active);
+      app.log.info('Service with moduleUrl: ' + res.record.pingUrl + ' active status: ' + res.record.active);
       next();
     });
   });
