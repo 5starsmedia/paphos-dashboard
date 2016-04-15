@@ -1,0 +1,44 @@
+<bz-form model="item" model-state="error" submit="saveItem(item)">
+<div class="modal-header">
+  <h3 class="modal-title">
+    <span ng-if="!item._id">{{'New service'|translate}}</span>
+    <span ng-if="item._id">Service "{{item.title}}"</span>
+  </h3>
+</div>
+<div class="modal-body">
+
+  <div ng-if="!item._id">
+    <bz-form-control label="{{'Service url'|translate}}" field="url" help="{{'Discover url for service'|translate}}">
+
+      <input type="url" ng-disabled="item._id" class="form-control" ng-model="item.url" ng-change="discoverUrl(item.url)" ng-model-options="{debounce: 750}" />
+
+    </bz-form-control>
+
+    <div ng-if="loadingDiscover">
+      Discovering...
+    </div>
+    <div class="alert alert-danger" ng-if="failderDiscover">
+      Invalid service url
+    </div>
+
+
+    <div class="alert alert-success" ng-if="successDiscover">
+      <p>Service successfuly discovered!
+      <p><strong>Title:</strong> {{item.title}}
+    </div>
+  </div>
+
+</div>
+<div class="modal-footer">
+
+  <button class="btn btn-danger pull-right" type="button" ng-click="deleteItem(item)">{{'Delete'|translate}}</button>
+
+  <button class="btn" ng-class="{'btn-success': successDiscover, 'btn-primary': !successDiscover}" type="submit" ng-disabled="!successDiscover">
+
+    <span ng-if="!item._id">{{'Add'|translate}}</span>
+    <span ng-if="item._id">{{'Save'|translate}}</span>
+
+  </button>
+  <button class="btn btn-secondary" type="button" ng-click="$close()">{{'Cancel'|translate}}</button>
+</div>
+</bz-form>

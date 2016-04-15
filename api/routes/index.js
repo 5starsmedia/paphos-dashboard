@@ -53,9 +53,9 @@ exports.init = function (app) {
     });
   });
 
+  app.server.delete('/api/:resource/:_id', resourceRoute);
 /*
   app.server.post('/api/:resource', access(), resourceRoute);
   app.server.put('/api/:resource/:_id', access(), resourceRoute);
-  app.server.delete('/api/:resource/:_id', access(), resourceRoute);
 */
 };

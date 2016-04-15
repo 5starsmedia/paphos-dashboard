@@ -8,9 +8,12 @@
     "Sign in to your account": "",
     "Active": "",
     "Inactive": "",
-    "New dashboard": "",
-    "Dashboard url": "",
-    "Discover url for dashboard": "",
+    "Details": "",
+    "New service": "",
+    "Service url": "",
+    "Discover url for service": "",
+    "Delete": "",
     "Add": "",
+    "Save": "",
     "Cancel": ""
 }

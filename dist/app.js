@@ -2030,12 +2030,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var dmEditDashboardCtrl =
+exports.default =
 /*@ngInject*/
-function dmEditDashboardCtrl($scope, $http, $q, bServiceModel) {
-  _classCallCheck(this, dmEditDashboardCtrl);
+function ($scope, $state, item, $http, $q, bServiceModel) {
+
+  $scope.item = item;
+
+  $scope.successDiscover = !!item._id; // already discover if edit
 
   var canceler = $q.defer();
   $scope.discoverUrl = function (url) {
@@ -2060,15 +2061,29 @@ function dmEditDashboardCtrl($scope, $http, $q, bServiceModel) {
     $scope.loading = true;
 
     item = angular.copy(item);
+
+    if (item._id) {
+      return item.$save(function (data) {
+        console.info(data);
+
+        $scope.loading = false;
+      });
+    }
+
     return item.$subscribe(function (data) {
       console.info(data);
 
       $scope.loading = false;
     });
   };
-};
 
-exports.default = dmEditDashboardCtrl;
+  $scope.deleteItem = function (item) {
+    $scope.loading = true;
+    item.$delete(function () {
+      $scope.$close();
+    });
+  };
+};
 
 },{}],50:[function(require,module,exports){
 'use strict';
@@ -2084,13 +2099,21 @@ function ($scope, $interval, bServiceModel) {
   var loadData = function loadData() {
     bServiceModel.query({}, function (data) {
       if ($scope.services) {
-        _.each(data, function (item) {
-          var service = _.find($scope.services, { _id: item._id });
+        _.each($scope.services, function (item) {
+          var service = _.find(data, { _id: item._id });
           if (!service) {
-            $scope.services.push(item);
+            $scope.services = _.reject($scope.services, function (service) {
+              return service._id == item._id;
+            });
             return;
           }
-          angular.copy(item, service);
+          data = _.reject(data, function (item) {
+            return service._id == item._id;
+          });
+          angular.copy(service, item);
+        });
+        _.each(data, function (item) {
+          $scope.services.push(item);
         });
         return;
       }
@@ -2104,6 +2127,16 @@ function ($scope, $interval, bServiceModel) {
   });
 
   loadData();
+
+  $scope.deleteItem = function (item) {
+    $scope.loading = true;
+    item.$delete(function () {
+      $scope.services = _.reject($scope.services, function (service) {
+        return service._id == item._id;
+      });
+      $scope.loading = false;
+    });
+  };
 };
 
 },{}],51:[function(require,module,exports){
@@ -2117,9 +2150,9 @@ var _dmListCtrl = require('./controllers/dmListCtrl.js');
 
 var _dmListCtrl2 = _interopRequireDefault(_dmListCtrl);
 
-var _dmEditDashboardCtrl = require('./controllers/dmEditDashboardCtrl.js');
+var _dmEditServiceCtrl = require('./controllers/dmEditServiceCtrl.js');
 
-var _dmEditDashboardCtrl2 = _interopRequireDefault(_dmEditDashboardCtrl);
+var _dmEditServiceCtrl2 = _interopRequireDefault(_dmEditServiceCtrl);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2129,39 +2162,57 @@ var _module = angular.module(appName, []);
 
 // controllers
 
-_module.controller('dmListCtrl', _dmListCtrl2.default).controller('dmEditDashboardCtrl', _dmEditDashboardCtrl2.default);
+_module.controller('dmListCtrl', _dmListCtrl2.default).controller('dmEditServiceCtrl', _dmEditServiceCtrl2.default);
 
 // config
 _module.config(function ($stateProvider) {
 
   $stateProvider
   // Forms
-  .state('dashboards', {
+  .state('services', {
     parent: 'private',
     abstract: true,
-    url: '/dashboards',
+    url: '/services',
     views: {
-      'master-view': { templateUrl: 'views/masters/dashboards.html' }
+      'master-view': { templateUrl: 'views/services/master-page.html' }
     }
-  }).state('dashboards.main', {
+  }).state('services.main', {
     url: '',
     views: {
-      'main-content': { controller: 'dmListCtrl', templateUrl: 'views/dashboards/content-main.html' }
+      'main-content': { controller: 'dmListCtrl', templateUrl: 'views/services/page-list.html' }
     }
-  }).state('dashboards.main.new', {
+  }).state('services.main.new', {
     url: '/new',
     onEnter: function onEnter($stateParams, $state, $uibModal) {
       $uibModal.open({
         backdropClass: 'modal-backdrop',
         windowClass: 'modal-right',
         animation: true,
-        templateUrl: 'views/dashboards/modal-edit.html',
+        templateUrl: 'views/services/modal-edit.html',
         resolve: {
           item: function item(bServiceModel) {
             return new bServiceModel();
           }
         },
-        controller: 'dmEditDashboardCtrl'
+        controller: 'dmEditServiceCtrl'
+      }).result.finally(function () {
+        return $state.go('^');
+      });
+    }
+  }).state('services.main.edit', {
+    url: '/:_id',
+    onEnter: function onEnter($stateParams, $state, $uibModal) {
+      $uibModal.open({
+        backdropClass: 'modal-backdrop',
+        windowClass: 'modal-right',
+        animation: true,
+        templateUrl: 'views/services/modal-edit.html',
+        resolve: {
+          item: function item(bServiceModel) {
+            return bServiceModel.get({ _id: $stateParams._id }).$promise;
+          }
+        },
+        controller: 'dmEditServiceCtrl'
       }).result.finally(function () {
         return $state.go('^');
       });
@@ -2171,7 +2222,7 @@ _module.config(function ($stateProvider) {
 
 exports.default = appName;
 
-},{"./controllers/dmEditDashboardCtrl.js":49,"./controllers/dmListCtrl.js":50}],52:[function(require,module,exports){
+},{"./controllers/dmEditServiceCtrl.js":49,"./controllers/dmListCtrl.js":50}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

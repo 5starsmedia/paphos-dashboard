@@ -5,10 +5,10 @@ let module = angular.module(appName, [
 
 // controllers
 import dmListCtrl from './controllers/dmListCtrl.js';
-import dmEditDashboardCtrl from './controllers/dmEditDashboardCtrl.js';
+import dmEditServiceCtrl from './controllers/dmEditServiceCtrl.js';
 module
   .controller('dmListCtrl', dmListCtrl)
-  .controller('dmEditDashboardCtrl', dmEditDashboardCtrl)
+  .controller('dmEditServiceCtrl', dmEditServiceCtrl)
 ;
 
 // config
@@ -16,33 +16,49 @@ module.config(($stateProvider) => {
 
   $stateProvider
   // Forms
-    .state('dashboards', {
+    .state('services', {
       parent: 'private',
       abstract: true,
-      url: '/dashboards',
+      url: '/services',
       views: {
-        'master-view': { templateUrl: 'views/masters/dashboards.html' }
+        'master-view': { templateUrl: 'views/services/master-page.html' }
       }
     })
-    .state('dashboards.main', {
+    .state('services.main', {
       url: '',
       views: {
-        'main-content': { controller: 'dmListCtrl', templateUrl: 'views/dashboards/content-main.html' }
+        'main-content': { controller: 'dmListCtrl', templateUrl: 'views/services/page-list.html' }
       }
     })
 
-    .state('dashboards.main.new', {
+    .state('services.main.new', {
       url: '/new',
       onEnter: ($stateParams, $state, $uibModal) => {
         $uibModal.open({
           backdropClass: 'modal-backdrop',
           windowClass: 'modal-right',
           animation: true,
-          templateUrl: 'views/dashboards/modal-edit.html',
+          templateUrl: 'views/services/modal-edit.html',
           resolve: {
             item: bServiceModel => new bServiceModel()
           },
-          controller: 'dmEditDashboardCtrl'
+          controller: 'dmEditServiceCtrl'
+        }).result.finally(() => $state.go('^'));
+      }
+    })
+
+    .state('services.main.edit', {
+      url: '/:_id',
+      onEnter: ($stateParams, $state, $uibModal) => {
+        $uibModal.open({
+          backdropClass: 'modal-backdrop',
+          windowClass: 'modal-right',
+          animation: true,
+          templateUrl: 'views/services/modal-edit.html',
+          resolve: {
+            item: bServiceModel => bServiceModel.get({ _id: $stateParams._id }).$promise
+          },
+          controller: 'dmEditServiceCtrl'
         }).result.finally(() => $state.go('^'));
       }
     })

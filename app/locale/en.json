@@ -8,9 +8,12 @@
     "Sign in to your account": "Sign in to your account",
     "Active": "Active",
     "Inactive": "Inactive",
-    "New dashboard": "New dashboard",
-    "Dashboard url": "Dashboard url",
-    "Discover url for dashboard": "Discover url for dashboard",
+    "Details": "Details",
+    "New service": "New service",
+    "Service url": "Service url",
+    "Discover url for service": "Discover url for service",
+    "Delete": "Delete",
     "Add": "Add",
+    "Save": "Save",
     "Cancel": "Cancel"
 }

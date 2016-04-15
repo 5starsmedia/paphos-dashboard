@@ -5,15 +5,19 @@ function ($scope, $interval, bServiceModel) {
   var loadData = () => {
     bServiceModel.query({} , data => {
       if ($scope.services) {
-        _.each(data, item => {
-          var service = _.find($scope.services, { _id: item._id });
+        _.each($scope.services, item => {
+          var service = _.find(data, { _id: item._id });
           if (!service) {
-            $scope.services.push(item);
+            $scope.services = _.reject($scope.services, service => service._id == item._id);
             return;
           }
-          angular.copy(item, service);
+          data = _.reject(data, item => service._id == item._id);
+          angular.copy(service, item);
         });
-        return;
+        _.each(data, item => {
+          $scope.services.push(item);
+        });
+        return; 
       }
       $scope.services = data;
     });
@@ -25,4 +29,12 @@ function ($scope, $interval, bServiceModel) {
   });
 
   loadData();
+
+  $scope.deleteItem = (item) => {
+    $scope.loading = true;
+    item.$delete(() => {
+      $scope.services = _.reject($scope.services, service => service._id == item._id);
+      $scope.loading = false;
+    })
+  }
 }

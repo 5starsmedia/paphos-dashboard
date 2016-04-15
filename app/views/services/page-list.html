@@ -2,11 +2,11 @@
 
 
   <div class="page-header">
-    <h1>Dashboards</h1>
+    <h1>Services</h1>
 
     <div class="page-actions">
 
-      <a href="" class="btn btn-primary" ui-sref="dashboards.main.new">Add dashboard</a>
+      <a href="" class="btn btn-primary" ui-sref="services.main.new">Add service</a>
 
     </div>
   </div>
@@ -31,7 +31,7 @@
       <li class="pr" ng-repeat="item in services">
 
         <div class="row">
-          <div class="col-xs-4 meta">
+          <div class="col-xs-9 meta">
             <label class="c-input c-checkbox">
               <input type="checkbox">
               <span class="c-indicator"></span>
@@ -44,34 +44,19 @@
               <span class="text-danger pe-7s-close-circle pe-3x pe-va"></span>
             </span>
 
-            <h4><a href="" ui-sref="forms.builder({ _id: item._id })" ng-bind="item.title"></a></h4>
+            <h4><a href="" ui-sref="services.main.edit({ _id: item._id })" ng-bind="item.title"></a></h4>
             <p>{{item.name}}</p>
-          </div>
-          <div class="col-xs-5">
-            <div class="data inline-block-i pull-left">
-              <h4>{{item.countFilled|number}}</h4>
-              <p class="dim-el">fillings</p>
-            </div>
-            <div class="data inline-block-i pull-left">
-              <h4>{{item.countClients|number}}</h4>
-              <p class="dim-el">clients</p>
-            </div>
           </div>
           <div class="col-xs-3 meta-actions">
 
             <div class="btn-group pull-right" uib-dropdown>
-              <a class="btn btn-secondary" href="" ng-disabled="item.loading" ui-sref="forms.builder({ _id: item._id })">Edit</a>
+              <a class="btn btn-secondary" href="" ng-disabled="item.loading" ui-sref="services.main.edit({ _id: item._id })">{{'Details'|translate}}</a>
 
               <button uib-dropdown-toggle type="button" ng-disabled="item.loading" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
               <div class="dropdown-menu uib-dropdown-menu">
-                <a class="dropdown-item" href="" ng-if="item.active" ng-click="turnOff(item)">Off</a>
-                <a class="dropdown-item" href="" ng-if="!item.active" ng-click="turnOn(item)">On</a>
-                <a class="dropdown-item" href="" ui-sref="forms.main.code({ _id: item._id })">Code...</a>
-                <a class="dropdown-item" href="">Settings...</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="">Delete</a>
+                <a class="dropdown-item" href="" ng-click="deleteItem(item)">Delete</a>
               </div>
             </div>
 

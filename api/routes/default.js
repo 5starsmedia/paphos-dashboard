@@ -69,7 +69,7 @@ function processGet(model, req, res, next) {
     options = getDataOptions(req);
 
   if (req.params._id || req.query.alias) {
-    
+
     model.findOne(filter, function (err, data) {
       if (err) {
         if (err.name === 'CastError') {
@@ -113,6 +113,25 @@ function processGet(model, req, res, next) {
   }
 }
 
+function processDelete(model, req, res, next) {
+  model.findById(req.params._id, function (err, data) {
+    if (err) {
+      return next(err);
+    }
+    data.update({'removed': Date.now()}, function (err) {
+      if (err) {
+        return next(err);
+      }
+      req.app.services.tasks.publish('db.' + req.params.resource + '.delete', { _id: req.params._id }, function (err) {
+          if (err) {
+            return next(err);
+          }
+          res.status(204).end();
+        });
+    });
+  });
+}
+
 module.exports = function processRequest(req, res, next) {
   var resourceName = req.params.resource,
     model = req.app.models[resourceName];
@@ -124,6 +143,9 @@ module.exports = function processRequest(req, res, next) {
     switch (method) {
       case 'get':
         processGet(model, req, res, next);
+        break;
+      case 'delete':
+        processDelete(model, req, res, next);
         break;
       default:
         next();
